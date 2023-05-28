@@ -1,7 +1,5 @@
 package be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic;
 
-import java.awt.*;
-
 /**
  * <code>AbsEnemy</code> is an abstract class that contains all the methods and variables for an {@link AbsCreature} to be an enemy.
  * <p>
@@ -58,7 +56,7 @@ public abstract class AbsEnemy extends AbsCreature {
     public int getHeight() {
         return height;
     }
-    
+
     public void move(int fieldWidth) {
         this.moveY(this.getHeight());
     }
