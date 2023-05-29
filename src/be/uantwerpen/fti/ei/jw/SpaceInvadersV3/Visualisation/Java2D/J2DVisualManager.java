@@ -12,11 +12,13 @@ import static java.lang.Math.min;
 public class J2DVisualManager extends AbsVisualManager {
     J2DGameFrame gameFrame;
     J2DGamePanel gamePanel;
+    J2DGameLabel paused;
     int cellSize;
     Dimension fieldDimension;
 
     public J2DVisualManager(int fieldWidth, int fieldHeight) {
         fieldDimension = new Dimension(fieldWidth, fieldHeight);
+        paused = new J2DGameLabel("Paused",50);
     }
 
     // Setup een gameframe dat een scoreboard heeft
@@ -48,7 +50,6 @@ public class J2DVisualManager extends AbsVisualManager {
         gamePanel = new J2DGamePanel(gamePanelDimension);
         gameFrame.add(gamePanel);
 
-
         // Maak G2d
         gamePanel.createG2D();
 
@@ -59,6 +60,18 @@ public class J2DVisualManager extends AbsVisualManager {
     @Override
     public void render() {
         gamePanel.getGamePanel().repaint();
+    }
+
+    @Override
+    public void showPaused() {
+        gamePanel.getG2d().setColor(Color.WHITE);
+        gamePanel.getG2d().setFont(new Font("MV Boli", Font.BOLD, 200));
+        gamePanel.getG2d().drawString("PAUSED",gameFrame.getWidth()/6,gameFrame.getHeight()/2);
+    }
+
+    @Override
+    public void clearGamePanel(){
+
     }
 
     public Graphics2D getG2d() {

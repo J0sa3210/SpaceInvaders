@@ -10,4 +10,8 @@ public abstract class AbsVisualManager {
     public abstract void setupGameEnv(AbsInput input, AbsScoreBoard scoreBoard);
 
     public abstract void render();
+
+    public abstract void showPaused();
+
+    public abstract void clearGamePanel();
 }

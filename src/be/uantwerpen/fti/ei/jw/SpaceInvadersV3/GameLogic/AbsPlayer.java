@@ -163,4 +163,18 @@ public abstract class AbsPlayer extends AbsCreature {
     public Color getOwnColor() {
         return ownColor;
     }
+
+    public void pauseTimers() {
+        if (powerUpTimer != null) {
+            powerUpTimer.pause();
+        }
+        shootTimer.pause();
+    }
+
+    public void startTimers() {
+        if (powerUpTimer != null) {
+            powerUpTimer.start();
+        }
+        shootTimer.start();
+    }
 }

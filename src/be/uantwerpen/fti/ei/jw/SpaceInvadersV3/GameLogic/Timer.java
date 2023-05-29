@@ -5,6 +5,9 @@ package be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic;
  */
 public class Timer {
     long startTime;
+    long timePassed;
+    long timeAtPause;
+    boolean isPaused;
 
     /**
      * Constructor that will automatically hold the time
@@ -18,13 +21,30 @@ public class Timer {
      */
     public void reset() {
         this.startTime = System.currentTimeMillis();
+        timePassed = 0;
+    }
+
+    public void pause() {
+        if (!isPaused) {
+            timeAtPause = getTime();
+            isPaused = true;
+        }
+    }
+
+    public void start() {
+        if (isPaused) {
+            startTime = System.currentTimeMillis() - timeAtPause;
+            isPaused = false;
+        }
     }
 
     /**
      * Show current time passed since the last reset or initialisation
+     *
      * @return long passed time
      */
     public long getTime() {
-        return System.currentTimeMillis() - startTime;
+        timePassed = System.currentTimeMillis() - startTime;
+        return timePassed;
     }
 }

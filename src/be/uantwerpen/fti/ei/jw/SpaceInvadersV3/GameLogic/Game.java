@@ -213,7 +213,7 @@ public class Game {
             - Check if they want to shoot
             - Update their position
              */
-        movementUpdater.updatePlayers(players,fieldWidth,input);
+        movementUpdater.updatePlayers(players, fieldWidth, input);
         for (AbsPlayer p : players) {
             // Give player powerUp
             p.checkPowerUp();
@@ -256,156 +256,172 @@ public class Game {
         // Start gameLoop
         System.out.println("Game loop starting");
         while (playing) {
+            if (!input.pausePressed) {
+                powerupTimer.start();
+                for (AbsPlayer player : players){
+                    player.startTimers();
+                }
+
+
 // ******************************************** CHECK FOR NEXT LEVEL ***************************************************
-            // Check if there are no enemies left, if so the next round should be loaded
-            if (enemiesList.size() == 0) {
-                System.out.println("No enemies");
-                nextRound();
-                continue;
-            }
+                // Check if there are no enemies left, if so the next round should be loaded
+                if (enemiesList.size() == 0) {
+                    System.out.println("No enemies");
+                    nextRound();
+                    continue;
+                }
 
 // ******************************************* CREATE POWERUP **********************************************************
 
-            // Create a powerUp object every 20 seconds
-            if (powerupTimer.getTime() > 20000) {
-                powerups.add(factory.createPowerUp(0, 0));
-                powerupTimer.reset();
-            }
+                // Create a powerUp object every 20 seconds
+                if (powerupTimer.getTime() > 20000) {
+                    powerups.add(factory.createPowerUp(0, 0));
+                    powerupTimer.reset();
+                }
 
 // ************************************** MOVE OBJECTS + CREATE BULLETS ************************************************
 
-            updatePlayers();
-            updateEnemies();
+                updatePlayers();
+                updateEnemies();
 
 
-            // Move all the powerUps
-            try{
-                List<MovementComponent> powerUpMovementComponents = powerups.stream().map(AbsEntity::getMovementComponent).collect(Collectors.toList());
-                movementUpdater.updatePowerup(powerUpMovementComponents, powerups.get(0), fieldWidth);
-            } catch (IndexOutOfBoundsException ignored) {}
-            // Move all the components
-            List<MovementComponent> bulletMovementComponents = Stream.concat(playerBullets.stream().map(AbsEntity::getMovementComponent), enemyBullets.stream().map(AbsEntity::getMovementComponent)).collect(Collectors.toList());
-            movementUpdater.updateBullets(bulletMovementComponents);
+                // Move all the powerUps
+                try {
+                    List<MovementComponent> powerUpMovementComponents = powerups.stream().map(AbsEntity::getMovementComponent).collect(Collectors.toList());
+                    movementUpdater.updatePowerup(powerUpMovementComponents, powerups.get(0), fieldWidth);
+                } catch (IndexOutOfBoundsException ignored) {
+                }
+                // Move all the components
+                List<MovementComponent> bulletMovementComponents = Stream.concat(playerBullets.stream().map(AbsEntity::getMovementComponent), enemyBullets.stream().map(AbsEntity::getMovementComponent)).collect(Collectors.toList());
+                movementUpdater.updateBullets(bulletMovementComponents);
 
 // ************************************************ COLLISION DETECTION ************************************************
 
-            // Iterators for the all the lists containing gameElements
-            Iterator<AbsBullet> it_playerBullets = playerBullets.iterator();
-            Iterator<AbsBullet> it_enemyBullets = enemyBullets.iterator();
-            Iterator<AbsEnemy> it_enemies = enemiesList.iterator();
-            Iterator<AbsPowerUp> it_powerups = powerups.iterator();
+                // Iterators for the all the lists containing gameElements
+                Iterator<AbsBullet> it_playerBullets = playerBullets.iterator();
+                Iterator<AbsBullet> it_enemyBullets = enemyBullets.iterator();
+                Iterator<AbsEnemy> it_enemies = enemiesList.iterator();
+                Iterator<AbsPowerUp> it_powerups = powerups.iterator();
 
-            // Check for collisions between playerBullets and Enemies or Powerups
-            while (it_playerBullets.hasNext()) {
-                // Get the playerBullet object
-                AbsPlayerBullet playerBullet = (AbsPlayerBullet) it_playerBullets.next();
+                // Check for collisions between playerBullets and Enemies or Powerups
+                while (it_playerBullets.hasNext()) {
+                    // Get the playerBullet object
+                    AbsPlayerBullet playerBullet = (AbsPlayerBullet) it_playerBullets.next();
 
-                // If playerBullet exits the field, let it disappear
-                if (playerBullet.getMovementComponent().getPosY() + playerBullet.getHeight() <= 0) {
-                    it_playerBullets.remove();
-                }
+                    // If playerBullet exits the field, let it disappear
+                    if (playerBullet.getMovementComponent().getPosY() + playerBullet.getHeight() <= 0) {
+                        it_playerBullets.remove();
+                    }
 
-                // Look if playerBullet has hit the powerUp
-                while (it_powerups.hasNext()) {
-                    AbsPowerUp powerUp = it_powerups.next();
-                    if (playerBullet.hasHit(powerUp)) {
-                        powerUp.damagedBy(playerBullet);
-                        if (powerUp.isDead()) {
-                            playerBullet.getShooter().getPowerUp(powerUp.getPowerUp()); // Give the power from the powerUp to the shooter of the playerBullet that hit it
-                            it_powerups.remove();
-                            powerupTimer.reset();
+                    // Look if playerBullet has hit the powerUp
+                    while (it_powerups.hasNext()) {
+                        AbsPowerUp powerUp = it_powerups.next();
+                        if (playerBullet.hasHit(powerUp)) {
+                            powerUp.damagedBy(playerBullet);
+                            if (powerUp.isDead()) {
+                                playerBullet.getShooter().getPowerUp(powerUp.getPowerUp()); // Give the power from the powerUp to the shooter of the playerBullet that hit it
+                                it_powerups.remove();
+                                powerupTimer.reset();
+                            }
+                            try {
+                                it_playerBullets.remove();
+                            } catch (IllegalStateException ignored) {
+
+                            }
                         }
-                        try {
-                            it_playerBullets.remove();
-                        } catch (IllegalStateException ignored) {
+                    }
 
+                    // Look if playerBullet has hit an enemy
+                    while (it_enemies.hasNext()) {
+                        AbsEnemy enemy = it_enemies.next();
+                        // If enemy is hit, damage it
+                        if (playerBullet.hasHit(enemy)) {
+                            // Damage the enemy hit
+                            enemy.damagedBy(playerBullet);
+
+                            // If enemy has no health anymore, delete it
+                            if (enemy.isDead()) {
+                                it_enemies.remove();
+                                playerBullet.getShooter().addPoints(1);
+                            }
+
+                            // Remove the bullet since it has hit something
+                            try {
+                                it_playerBullets.remove();
+                            } catch (IllegalStateException ignored) {
+
+                            }
                         }
                     }
                 }
 
-                // Look if playerBullet has hit an enemy
-                while (it_enemies.hasNext()) {
-                    AbsEnemy enemy = it_enemies.next();
-                    // If enemy is hit, damage it
-                    if (playerBullet.hasHit(enemy)) {
-                        // Damage the enemy hit
-                        enemy.damagedBy(playerBullet);
+                // Look if enemyBullet has hit a player
+                while (it_enemyBullets.hasNext()) {
+                    // Get the enemybullet object
+                    AbsEnemyBullet enemyBullet = (AbsEnemyBullet) it_enemyBullets.next();
 
-                        // If enemy has no health anymore, delete it
-                        if (enemy.isDead()) {
-                            it_enemies.remove();
-                            playerBullet.getShooter().addPoints(1);
-                        }
+                    // If bullet exits the field, let it disappear
+                    if (enemyBullet.getMovementComponent().getPosY() > fieldHeight) {
+                        it_enemyBullets.remove();
+                    }
 
-                        // Remove the bullet since it has hit something
-                        try {
-                            it_playerBullets.remove();
-                        } catch (IllegalStateException ignored) {
+                    // Check if enemyBullet has hit a player
+                    for (AbsPlayer player : players) {
+                        if (player != null && enemyBullet.hasHit(player)) {
+                            player.damagedBy(enemyBullet);
+                            try {
+                                it_enemyBullets.remove();
+                            } catch (IllegalStateException ignored) {
 
+                            }
+
+                            // Check if player is dead or not
+                            if (player.isDead()) {
+                                gameOver = true;
+                                playing = false;
+                                break;
+                            }
                         }
                     }
                 }
-            }
 
-            // Look if enemyBullet has hit a player
-            while (it_enemyBullets.hasNext()) {
-                // Get the enemybullet object
-                AbsEnemyBullet enemyBullet = (AbsEnemyBullet) it_enemyBullets.next();
-
-                // If bullet exits the field, let it disappear
-                if (enemyBullet.getMovementComponent().getPosY() > fieldHeight) {
-                    it_enemyBullets.remove();
-                }
-
-                // Check if enemyBullet has hit a player
-                for (AbsPlayer player : players) {
-                    if (player != null && enemyBullet.hasHit(player)) {
-                        player.damagedBy(enemyBullet);
-                        try {
-                            it_enemyBullets.remove();
-                        } catch (IllegalStateException ignored) {
-
-                        }
-
-                        // Check if player is dead or not
-                        if (player.isDead()) {
-                            gameOver = true;
-                            playing = false;
-                            break;
-                        }
+                // Check if enemy has hit the ground level
+                try {
+                    int maxY = enemiesList.stream().map(AbsEntity::getMovementComponent).mapToInt(MovementComponent::getPosY).min().getAsInt() + enemiesList.get(0).getHeight();
+                    if (maxY >= fieldHeight - enemiesList.get(0).getHeight()) {
+                        gameOver = true;
+                        playing = false;
+                        break;
                     }
+                } catch (IndexOutOfBoundsException | NoSuchElementException ignored) {
                 }
-            }
-
-            // Check if enemy has hit the ground level
-            try {
-                int maxY = enemiesList.stream().map(AbsEntity::getMovementComponent).mapToInt(MovementComponent::getPosY).min().getAsInt() + enemiesList.get(0).getHeight();
-                if (maxY >= fieldHeight - enemiesList.get(0).getHeight()) {
-                    gameOver = true;
-                    playing = false;
-                    break;
-                }
-            } catch (IndexOutOfBoundsException | NoSuchElementException ignored) {
-            }
 
 
 // ****************************************** VISUALIZE GAME OBJECTS ***************************************************
-            enemiesList.forEach(AbsEnemy::visualize);
-            players.forEach(AbsPlayer::visualize);
-            playerBullets.forEach(AbsBullet::visualize);
-            enemyBullets.forEach(AbsBullet::visualize);
-            powerups.forEach(AbsPowerUp::visualize);
+                enemiesList.forEach(AbsEnemy::visualize);
+                players.forEach(AbsPlayer::visualize);
+                playerBullets.forEach(AbsBullet::visualize);
+                enemyBullets.forEach(AbsBullet::visualize);
+                powerups.forEach(AbsPowerUp::visualize);
 
-            // Update the points and lives of the players
-            scoreBoard.update();
-            scoreBoard.visualize();
+                // Update the points and lives of the players
+                scoreBoard.update();
+                scoreBoard.visualize();
 
-            visualManager.render();   // Show the bufferedImage on the gamePanel
+                visualManager.render();   // Show the bufferedImage on the gamePanel
 
-            //SoundSystem.update(playerBullets.stream().map(AbsBullet::getSoundComponent).collect(Collectors.toList()));
+                //SoundSystem.update(playerBullets.stream().map(AbsBullet::getSoundComponent).collect(Collectors.toList()));
 
 // ***************************************** SLEEP UNTIL NEXT FRAME ****************************************************
-
+            } else {
+                powerupTimer.pause();
+                for (AbsPlayer player : players) {
+                    player.pauseTimers();
+                }
+                visualManager.clearGamePanel();
+                visualManager.showPaused();
+                visualManager.render();
+            }
             // Sleep until next frame
             long sleepTime = frameInterval - gameTimer.getTime();
             try {
@@ -419,3 +435,5 @@ public class Game {
         }
     }
 }
+
+//TODO: Add Sprites

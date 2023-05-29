@@ -36,6 +36,9 @@ public class KeyboardInput1 extends AbsInput implements KeyListener {
         if (keyCode == KeyEvent.VK_NUMPAD0) {
             shootPressed.set(0, true);
         }
+        if (keyCode == KeyEvent.VK_P){
+            pausePressed = !pausePressed;
+        }
         try {
             if (keyCode == KeyEvent.VK_Z) {
                 upPressed.set(1, true);
@@ -52,9 +55,7 @@ public class KeyboardInput1 extends AbsInput implements KeyListener {
             if (keyCode == KeyEvent.VK_SPACE) {
                 shootPressed.set(1, true);
             }
-        } catch (IndexOutOfBoundsException ignored) {
-
-        }
+        } catch (IndexOutOfBoundsException ignored) {}
 
     }
 
@@ -77,7 +78,6 @@ public class KeyboardInput1 extends AbsInput implements KeyListener {
         if (keyCode == KeyEvent.VK_NUMPAD0) {
             shootPressed.set(0, false);
         }
-
         try {
             if (keyCode == KeyEvent.VK_Z) {
                 upPressed.set(1, false);
