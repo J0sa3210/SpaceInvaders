@@ -3,7 +3,6 @@ package be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic;
 import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Input.AbsInput;
 import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Input.KeyboardInput1;
 import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Visualisation.Java2D.J2DFactory;
-import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Visualisation.Java2D.J2DVisualManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -13,12 +12,13 @@ import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.locks.AbstractQueuedSynchronizer;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Game {
 
@@ -33,8 +33,10 @@ public class Game {
     long frameInterval = 1000 / FPS;
     Timer gameTimer, powerupTimer;
 
-    // Variables concerning the input
+    // Variables concerning the movement
     AbsInput input;
+    MovementSystem movementUpdater = new MovementSystem();
+
 
     // Variables concerning the game environment
     AbsFactory factory;
@@ -63,7 +65,7 @@ public class Game {
         loadVariables(configSettings);
 
         // Create the player(s)
-        createPlayers(1);
+        createPlayers(2);
 
         // Create game environment
         createGameEnvironment();
@@ -104,9 +106,6 @@ public class Game {
         // Choose the type of visualisation
         factory = new J2DFactory(fieldWidth, fieldHeight);
 
-        // Choose the type of input
-        input = new KeyboardInput1();
-
         // Create the different Timers
         gameTimer = new Timer();
         powerupTimer = new Timer();
@@ -127,12 +126,15 @@ public class Game {
     }
 
     private void createPlayers(int amountOfPlayers) {
+        // Choose the type of input
+        input = new KeyboardInput1(amountOfPlayers);
         if (amountOfPlayers > 0) {
-            players.add(factory.createPlayer1(100, fieldHeight - 15, "Player1", input));
+            players.add(factory.createPlayer(100, fieldHeight - 15, "Player1", input));
         }
         if (amountOfPlayers > 1) {
-            players.add(factory.createPlayer2(50, fieldHeight - 15, "Player2", input));
+            players.add(factory.createPlayer(50, fieldHeight - 15, "Player2", input));
         }
+
     }
 
     private void createGameEnvironment() {
@@ -203,14 +205,6 @@ public class Game {
         }
     }
 
-    public void calculateEnemyDirection() {
-        int min = enemiesList.stream().mapToInt(AbsEntity::getX).min().getAsInt();
-        int max = enemiesList.stream().mapToInt(AbsEntity::getX).max().getAsInt();
-        if (min == 0 || max + enemiesList.get(0).getWidth() - 1 >= fieldWidth) {
-            AbsEnemy.moveRight = !AbsEnemy.moveRight;
-            AbsEnemy.moveDown = true;
-        }
-    }
 
     private void updatePlayers() {
         /*
@@ -219,12 +213,10 @@ public class Game {
             - Check if they want to shoot
             - Update their position
              */
+        movementUpdater.updatePlayers(players,fieldWidth,input);
         for (AbsPlayer p : players) {
             // Give player powerUp
             p.checkPowerUp();
-
-            // Update the location of the player
-            p.move(fieldWidth);
 
             // Create bullets if player shoots
             if (p.shoots() && p.getShootTimer().getTime() >= 500 / p.getShootingBonus()) {
@@ -254,14 +246,8 @@ public class Game {
 
         // Make sure that the enemies move slower than the rest of the game
         if (AbsEnemy.getEnemyMoveTimer().getTime() >= 300) {
-            calculateEnemyDirection();
-            for (AbsEnemy enemy : enemiesList) {
-                enemy.moveHor();
-                if (AbsEnemy.moveDown) {
-                    enemy.move(fieldWidth);
-                }
-            }
-            AbsEnemy.moveDown = false;
+            List<MovementComponent> components = enemiesList.stream().map(AbsEnemy::getMovementComponent).collect(Collectors.toList());
+            movementUpdater.updateEnemies(components, enemiesList.get(0), fieldWidth);
             AbsEnemy.getEnemyMoveTimer().reset();
         }
     }
@@ -293,16 +279,13 @@ public class Game {
 
 
             // Move all the powerUps
-            for (AbsPowerUp powerUp : powerups) {
-                powerUp.move(fieldWidth);
-            }
-            // Move all the bullets
-            for (AbsBullet bullet : playerBullets) {
-                bullet.move(fieldWidth);
-            }
-            for (AbsBullet bullet : enemyBullets) {
-                bullet.move(fieldWidth);
-            }
+            try{
+                List<MovementComponent> powerUpMovementComponents = powerups.stream().map(AbsEntity::getMovementComponent).collect(Collectors.toList());
+                movementUpdater.updatePowerup(powerUpMovementComponents, powerups.get(0), fieldWidth);
+            } catch (IndexOutOfBoundsException ignored) {}
+            // Move all the components
+            List<MovementComponent> bulletMovementComponents = Stream.concat(playerBullets.stream().map(AbsEntity::getMovementComponent), enemyBullets.stream().map(AbsEntity::getMovementComponent)).collect(Collectors.toList());
+            movementUpdater.updateBullets(bulletMovementComponents);
 
 // ************************************************ COLLISION DETECTION ************************************************
 
@@ -318,7 +301,7 @@ public class Game {
                 AbsPlayerBullet playerBullet = (AbsPlayerBullet) it_playerBullets.next();
 
                 // If playerBullet exits the field, let it disappear
-                if (playerBullet.getY() + playerBullet.getHeight() <= 0) {
+                if (playerBullet.getMovementComponent().getPosY() + playerBullet.getHeight() <= 0) {
                     it_playerBullets.remove();
                 }
 
@@ -355,7 +338,11 @@ public class Game {
                         }
 
                         // Remove the bullet since it has hit something
-                        it_playerBullets.remove();
+                        try {
+                            it_playerBullets.remove();
+                        } catch (IllegalStateException ignored) {
+
+                        }
                     }
                 }
             }
@@ -366,7 +353,7 @@ public class Game {
                 AbsEnemyBullet enemyBullet = (AbsEnemyBullet) it_enemyBullets.next();
 
                 // If bullet exits the field, let it disappear
-                if (enemyBullet.getY() > fieldHeight) {
+                if (enemyBullet.getMovementComponent().getPosY() > fieldHeight) {
                     it_enemyBullets.remove();
                 }
 
@@ -392,8 +379,8 @@ public class Game {
 
             // Check if enemy has hit the ground level
             try {
-                int maxY = enemiesList.stream().mapToInt(AbsEntity::getY).min().getAsInt() + enemiesList.get(0).getHeight();
-                if (maxY >= 300 - AbsPlayer.height) {
+                int maxY = enemiesList.stream().map(AbsEntity::getMovementComponent).mapToInt(MovementComponent::getPosY).min().getAsInt() + enemiesList.get(0).getHeight();
+                if (maxY >= fieldHeight - enemiesList.get(0).getHeight()) {
                     gameOver = true;
                     playing = false;
                     break;

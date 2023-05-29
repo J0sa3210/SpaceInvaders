@@ -7,7 +7,6 @@ import java.awt.*;
 import java.util.LinkedList;
 
 public class J2DFactory extends AbsFactory {
-    AbsInput input;
     J2DVisualManager visualManager;
     Dimension fieldDimension;
 
@@ -15,7 +14,6 @@ public class J2DFactory extends AbsFactory {
         fieldDimension = new Dimension(fieldWidth, fieldHeight);
         visualManager = (J2DVisualManager) createVisualManager(fieldWidth, fieldHeight);
     }
-
 
     @Override
     public AbsEnemyBullet createEnemyBullet(AbsEnemy enemy) {
@@ -32,30 +30,19 @@ public class J2DFactory extends AbsFactory {
         return new J2DScoreBoard(players);
     }
 
-
     @Override
     public AbsEnemy createEnemy(int x, int y) {
         return new J2DEnemy(x, y, this);
     }
 
     @Override
-    public AbsPlayer createPlayer1(int x, int y, String playerName, AbsInput input) {
-        return new J2DPlayer1(x, y, playerName, this, input);
-    }
-
-    @Override
-    public AbsPlayer createPlayer2(int x, int y, String playerName, AbsInput input) {
-        return new J2DPlayer2(x, y, playerName, this, input);
+    public AbsPlayer createPlayer(int x, int y, String playername, AbsInput input) {
+        return new J2DPlayer(x, y, playername, this, input);
     }
 
     @Override
     public AbsPlayerBullet createPlayerBullet(AbsPlayer p) {
         return new J2DPlayerBullet(p, this);
-    }
-
-    @Override
-    public void render() {
-        visualManager.render();
     }
 
     @Override
@@ -65,11 +52,6 @@ public class J2DFactory extends AbsFactory {
 
     public J2DVisualManager getVisualManager() {
         return visualManager;
-    }
-
-    @Override
-    public AbsInput getInput() {
-        return input;
     }
 
     public int getScale() {

@@ -20,6 +20,7 @@ public class J2DEnemyBullet extends AbsEnemyBullet {
         Graphics2D g2d = f.getG2d();
         double scale = f.getScale();
         g2d.setColor(Color.WHITE);
-        g2d.fillRect((int) ( this.getX() * scale), (int)(this.getY() * scale),(int) (this.getWidth() * scale),(int) (this.getHeight() * scale));
+        Point pos = getMovementComponent().getPosition();
+        g2d.fillRect((int) (pos.getX() * scale), (int) (pos.getY() * scale), (int) (this.getWidth() * scale), (int) (this.getHeight() * scale));
     }
 }

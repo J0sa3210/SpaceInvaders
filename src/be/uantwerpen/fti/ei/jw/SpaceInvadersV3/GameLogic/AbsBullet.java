@@ -13,7 +13,4 @@ public abstract class AbsBullet extends AbsEntity {
 
     public abstract boolean hasHit(AbsCreature creature);
 
-    @Override
-    public abstract void move(int fieldWidth);
-
 }

@@ -1,9 +1,17 @@
 package be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic;
 
+import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Input.AbsInput;
+
+import java.awt.*;
+
 public abstract class AbsPlayer extends AbsCreature {
-    public static int height;
+    private static final Color[] colors = new Color[]{Color.BLUE, Color.RED, Color.ORANGE};
+    private static int playerId;
     private final String playerName;
     private final Timer shootTimer;
+    private final int ownId;
+    private final AbsInput input;
+    private final Color ownColor;
     private boolean hasDoubleMovementSpeed;
     private boolean hasDoubleShootingSpeed;
     private boolean hasMitraillette;
@@ -13,51 +21,54 @@ public abstract class AbsPlayer extends AbsCreature {
     private int points;
     private Timer powerUpTimer;
 
-    public AbsPlayer(int x, int y, String playerName) {
-        this.setX(x);
-        this.setY(y);
-        height = 15;
+    public AbsPlayer(int x, int y, String playerName, AbsInput input) {
+        ownId = playerId;
+        playerId++;
+        ownColor = colors[ownId];
+        this.setMovementComponent(new MovementComponent(x, y, 2, 2));
+        this.input = input;
         this.setWidth(15);
-        this.setHeight(height);
-        this.setSpeed(2);
+        this.setHeight(15);
         this.setHealth(3);
         this.setDead(false);
+
         this.hasDoubleMovementSpeed = false;
         this.hasDoubleShootingSpeed = false;
         this.hasMitraillette = false;
         this.hasHalveMovementSpeed = false;
+
         this.shootingBonus = 1;
         this.movementBonus = 1;
+
         this.points = 0;
+
         this.playerName = playerName;
         this.shootTimer = new Timer();
     }
 
-    public abstract boolean shoots();
-
     public void getPowerUp(String powerup) {
         switch (powerup) {
-            case "extraLife":
+            case "extraLife" -> {
                 if (this.getHealth() < 5) {
                     this.addExtraLife();
                 }
-                break;
-            case "doubleMovementSpeed":
+            }
+            case "doubleMovementSpeed" -> {
                 powerUpTimer = new Timer();
                 this.hasDoubleMovementSpeed = true;
-                break;
-            case "doubleShootingSpeed":
+            }
+            case "doubleShootingSpeed" -> {
                 powerUpTimer = new Timer();
                 this.hasDoubleShootingSpeed = true;
-                break;
-            case "Mitraillette":
+            }
+            case "Mitraillette" -> {
                 powerUpTimer = new Timer();
                 this.hasMitraillette = true;
-                break;
-            case "halveMovementSpeed":
+            }
+            case "halveMovementSpeed" -> {
                 powerUpTimer = new Timer();
                 this.hasHalveMovementSpeed = true;
-                break;
+            }
         }
     }
 
@@ -141,4 +152,15 @@ public abstract class AbsPlayer extends AbsCreature {
         return this.movementBonus;
     }
 
+    public boolean shoots() {
+        return input.getShootPressed().get(ownId);
+    }
+
+    public int getOwnId() {
+        return ownId;
+    }
+
+    public Color getOwnColor() {
+        return ownColor;
+    }
 }

@@ -10,6 +10,5 @@ public class J2DGameLabel extends JLabel {
         this.setBackground(Color.BLACK);
         this.setForeground(Color.WHITE);
         this.setHorizontalTextPosition(SwingConstants.LEFT);
-        //this.setBorder(BorderFactory.createLineBorder(Color.RED));
     }
 }

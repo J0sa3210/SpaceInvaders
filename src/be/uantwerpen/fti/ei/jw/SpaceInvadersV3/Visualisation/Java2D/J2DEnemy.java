@@ -1,7 +1,6 @@
 package be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Visualisation.Java2D;
 
 
-
 import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic.AbsEnemy;
 import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic.AbsFactory;
 
@@ -20,7 +19,7 @@ public class J2DEnemy extends AbsEnemy {
         Graphics2D g2d = f.getG2d();
         int scale = f.getScale();
         g2d.setColor(Color.GREEN);
-        g2d.fillRect(this.getX() * scale, this.getY() * scale, (this.getWidth() * scale), (this.getHeight() * scale));
-
+        Point pos = getMovementComponent().getPosition();
+        g2d.fillRect((int) (pos.getX() * scale), (int) (pos.getY() * scale), this.getWidth() * scale, this.getHeight() * scale);
     }
 }

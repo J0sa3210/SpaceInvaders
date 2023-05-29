@@ -19,7 +19,7 @@ public class J2DPlayerBullet extends AbsPlayerBullet {
         Graphics2D g2d = f.getG2d();
         int scale = f.getScale();
         g2d.setColor(Color.WHITE);
-        g2d.fillRect(this.getX() * scale, this.getY() * scale, (int) (this.getWidth() * scale), (int) (this.getHeight() * scale));
-
+        Point pos = getMovementComponent().getPosition();
+        g2d.fillRect((int) (pos.getX() * scale), (int) (pos.getY() * scale), (this.getWidth() * scale), (this.getHeight() * scale));
     }
 }

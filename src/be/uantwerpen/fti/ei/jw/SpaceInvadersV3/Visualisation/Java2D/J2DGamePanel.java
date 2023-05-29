@@ -5,8 +5,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class J2DGamePanel {
-    private JPanel gamePanel;
-
+    private final JPanel gamePanel;
     private Graphics2D g2d;
     private BufferedImage g2dimage;
 
@@ -25,7 +24,6 @@ public class J2DGamePanel {
                         g2d.fillRect(0, 0, g2dimage.getWidth(), g2dimage.getHeight());
                     }
                 } catch (Exception ignored) {
-                    System.out.println(ignored.getMessage());
                 }
             }
         };
@@ -39,10 +37,6 @@ public class J2DGamePanel {
         return gamePanel;
     }
 
-    public void setGamePanel(JPanel gamePanel) {
-        this.gamePanel = gamePanel;
-    }
-
     public void createG2D() {
         g2dimage = new BufferedImage(gamePanel.getSize().width, gamePanel.getSize().height, BufferedImage.TYPE_4BYTE_ABGR_PRE);
         g2d = g2dimage.createGraphics();
@@ -50,17 +44,5 @@ public class J2DGamePanel {
 
     public Graphics2D getG2d() {
         return g2d;
-    }
-
-    public void setG2d(Graphics2D g2d) {
-        this.g2d = g2d;
-    }
-
-    public BufferedImage getG2dimage() {
-        return g2dimage;
-    }
-
-    public void setG2dimage(BufferedImage g2dimage) {
-        this.g2dimage = g2dimage;
     }
 }

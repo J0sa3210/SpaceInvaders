@@ -16,17 +16,14 @@ import java.awt.*;
  */
 public abstract class AbsPlayerBullet extends AbsBullet {
     private final AbsPlayer shooter;
-    private final SoundComponent soundComponent;
 
     public AbsPlayerBullet(AbsPlayer p) {
         this.setWidth(2);
         this.setHeight(5);
-        this.setX((p.getX() + p.getWidth() / 2 - this.getWidth() / 2));
-        this.setY(p.getY());
-        this.setSpeed(5);
+        Point pPos = p.getMovementComponent().getPosition();
+        this.setMovementComponent(new MovementComponent((int) (pPos.getX() + p.getWidth() / 2 - this.getWidth() / 2), (int) pPos.getY(), 0, -5));
         this.setDamage(1);
         this.shooter = p;
-        this.soundComponent = new SoundComponent("8-bit-explosion.wav");
     }
 
     /**
@@ -37,12 +34,9 @@ public abstract class AbsPlayerBullet extends AbsBullet {
      */
     @Override
     public boolean hasHit(AbsCreature creature) {
-        return this.getX() <= creature.getX() + creature.getWidth() && this.getX() >= creature.getX() && this.getY()+this.getHeight() <= creature.getY() + creature.getHeight() && (this.getY() + this.getHeight()) > creature.getY();
-    }
-
-    @Override
-    public void move(int fieldWidth) {
-        this.moveY(-this.getSpeed());
+        Point pos = getMovementComponent().getPosition();
+        Point cPos = creature.getMovementComponent().getPosition();
+        return pos.getX() <= cPos.getX() + creature.getWidth() && pos.getX() >= cPos.getX() && pos.getY() + this.getHeight() <= cPos.getY() + creature.getHeight() && (pos.getY() + this.getHeight()) > cPos.getY();
     }
 
     /**
@@ -57,9 +51,5 @@ public abstract class AbsPlayerBullet extends AbsBullet {
      */
     public AbsPlayer getShooter() {
         return this.shooter;
-    }
-
-    public SoundComponent getSoundComponent(){
-        return this.soundComponent;
     }
 }

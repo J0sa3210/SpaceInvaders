@@ -22,9 +22,6 @@ public class J2DScoreBoard extends AbsScoreBoard {
         int scoreBoardHeight = 30 * cellSize;
         int scoreBoardWidth = frameWidth / 3;
 
-        int labelHeight = 100;
-        int labelWidth = scoreBoardWidth;
-
         for (int i = 0; i < 2; i++) {
             JPanel tempScoreBoardPanel = new JPanel(null);
             tempScoreBoardPanel.setBounds(0, 0, scoreBoardWidth, scoreBoardHeight);
@@ -43,21 +40,11 @@ public class J2DScoreBoard extends AbsScoreBoard {
                 tempScoreBoardPanel.add(l1);
                 tempScoreBoardPanel.add(l2);
                 tempScoreBoardPanel.add(l3);
-            } catch (IndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException ignored) {
 
             }
-
-
             scoreBoardPanels.add(tempScoreBoardPanel);
         }
-
-
-        // Create scoreBoardPanel
-
-    }
-
-    public LinkedList<JPanel> getScoreBoardPanel() {
-        return scoreBoardPanels;
     }
 
     @Override
@@ -70,9 +57,7 @@ public class J2DScoreBoard extends AbsScoreBoard {
                 label1.setText("Points: " + getScoreBoardStructs().get(i).points());
                 JLabel label2 = (JLabel) scoreBoardPanel.getComponent(2);
                 label2.setText("Health: " + getScoreBoardStructs().get(i++).health());
-            } catch (ArrayIndexOutOfBoundsException ignored) {
-
-            }
+            } catch (ArrayIndexOutOfBoundsException ignored) {}
         }
     }
 }

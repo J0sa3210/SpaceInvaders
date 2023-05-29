@@ -8,6 +8,10 @@ import java.awt.event.KeyListener;
  */
 public class KeyboardInput1 extends AbsInput implements KeyListener {
 
+    public KeyboardInput1(int amOfPlayers) {
+        super(amOfPlayers);
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -18,34 +22,38 @@ public class KeyboardInput1 extends AbsInput implements KeyListener {
         int keyCode = e.getKeyCode();
 
         if (keyCode == KeyEvent.VK_UP) {
-            upPressed1 = true;
+            upPressed.set(0, true);
         }
         if (keyCode == KeyEvent.VK_DOWN) {
-            downPressed1 = true;
+            downPressed.set(0, true);
         }
         if (keyCode == KeyEvent.VK_LEFT) {
-            leftPressed1 = true;
+            leftPressed.set(0, true);
         }
         if (keyCode == KeyEvent.VK_RIGHT) {
-            rightPressed1 = true;
+            rightPressed.set(0, true);
         }
         if (keyCode == KeyEvent.VK_NUMPAD0) {
-            shootPressed1 = true;
+            shootPressed.set(0, true);
         }
-        if (keyCode == KeyEvent.VK_Z) {
-            upPressed2 = true;
-        }
-        if (keyCode == KeyEvent.VK_S) {
-            downPressed2 = true;
-        }
-        if (keyCode == KeyEvent.VK_Q) {
-            leftPressed2 = true;
-        }
-        if (keyCode == KeyEvent.VK_D) {
-            rightPressed2 = true;
-        }
-        if (keyCode == KeyEvent.VK_SPACE) {
-            shootPressed2 = true;
+        try {
+            if (keyCode == KeyEvent.VK_Z) {
+                upPressed.set(1, true);
+            }
+            if (keyCode == KeyEvent.VK_S) {
+                downPressed.set(1, true);
+            }
+            if (keyCode == KeyEvent.VK_Q) {
+                leftPressed.set(1, true);
+            }
+            if (keyCode == KeyEvent.VK_D) {
+                rightPressed.set(1, true);
+            }
+            if (keyCode == KeyEvent.VK_SPACE) {
+                shootPressed.set(1, true);
+            }
+        } catch (IndexOutOfBoundsException ignored) {
+
         }
 
     }
@@ -55,34 +63,41 @@ public class KeyboardInput1 extends AbsInput implements KeyListener {
         int keyCode = e.getKeyCode();
 
         if (keyCode == KeyEvent.VK_UP) {
-            upPressed1 = false;
+            upPressed.set(0, false);
         }
         if (keyCode == KeyEvent.VK_DOWN) {
-            downPressed1 = false;
+            downPressed.set(0, false);
         }
         if (keyCode == KeyEvent.VK_LEFT) {
-            leftPressed1 = false;
+            leftPressed.set(0, false);
         }
         if (keyCode == KeyEvent.VK_RIGHT) {
-            rightPressed1 = false;
+            rightPressed.set(0, false);
         }
         if (keyCode == KeyEvent.VK_NUMPAD0) {
-            shootPressed1 = false;
+            shootPressed.set(0, false);
         }
-        if (keyCode == KeyEvent.VK_Z) {
-            upPressed2 = false;
+
+        try {
+            if (keyCode == KeyEvent.VK_Z) {
+                upPressed.set(1, false);
+            }
+            if (keyCode == KeyEvent.VK_S) {
+                downPressed.set(1, false);
+            }
+            if (keyCode == KeyEvent.VK_Q) {
+                leftPressed.set(1, false);
+            }
+            if (keyCode == KeyEvent.VK_D) {
+                rightPressed.set(1, false);
+            }
+            if (keyCode == KeyEvent.VK_SPACE) {
+                shootPressed.set(1, false);
+            }
+        } catch (IndexOutOfBoundsException ignored) {
         }
-        if (keyCode == KeyEvent.VK_S) {
-            downPressed2 = false;
-        }
-        if (keyCode == KeyEvent.VK_Q) {
-            leftPressed2 = false;
-        }
-        if (keyCode == KeyEvent.VK_D) {
-            rightPressed2 = false;
-        }
-        if (keyCode == KeyEvent.VK_SPACE) {
-            shootPressed2 = false;
-        }
+
     }
+
+
 }

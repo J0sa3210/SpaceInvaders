@@ -1,16 +1,11 @@
 package be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Visualisation.Java2D;
 
-import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic.AbsScoreBoard;
-
 import javax.swing.*;
 import java.awt.*;
-import java.util.LinkedList;
 
 public class J2DGameFrame extends JFrame {
     private final int frameWidth;
-    private final int frameHeight;
     private final int headingHeight;
-    private int scoreBoardPanelWidth;
 
     public J2DGameFrame(Dimension frameDimension, int cellSize) {
         this.setFocusable(true);
@@ -27,7 +22,6 @@ public class J2DGameFrame extends JFrame {
 
         // Dimensions
         frameWidth = this.getWidth();
-        frameHeight = this.getHeight();
 
 
         // Heading
@@ -42,10 +36,9 @@ public class J2DGameFrame extends JFrame {
     public void add(J2DScoreBoard scoreBoard) {
         int i = 0;
         for (JPanel scoreBoardPanel : scoreBoard.scoreBoardPanels){
-            JPanel scoreB = scoreBoardPanel;
-            scoreB.setLocation(i++*frameWidth * 2 / 3, 0);
-            scoreB.setVisible(true);
-            this.add(scoreB);
+            scoreBoardPanel.setLocation(i++*frameWidth * 2 / 3, 0);
+            scoreBoardPanel.setVisible(true);
+            this.add(scoreBoardPanel);
         }
     }
 

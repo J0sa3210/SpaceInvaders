@@ -4,7 +4,6 @@ import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic.AbsScoreBoard;
 import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic.AbsVisualManager;
 import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Input.AbsInput;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
 
@@ -66,33 +65,7 @@ public class J2DVisualManager extends AbsVisualManager {
         return gamePanel.getG2d();
     }
 
-    public J2DGameFrame getGameFrame() {
-        return gameFrame;
-    }
-
-    public void setGameFrame(J2DGameFrame gameFrame) {
-        this.gameFrame = gameFrame;
-    }
-
-    public J2DGamePanel getGamePanel() {
-        return gamePanel;
-    }
-
-    public void setGamePanel(J2DGamePanel gamePanel) {
-        this.gamePanel = gamePanel;
-    }
-
-    public int getCellSize() {
-        return cellSize;
-    }
-
-    public void setCellSize(int cellSize) {
-        this.cellSize = cellSize;
-    }
-
     private int calculateCellSize(Dimension fieldDimension) {
-        // System.out.println("GamePanel dimensions: " + gamePanel.getGamePanel().getSize());
-        // System.out.println("fielddimensions: " + gamePanel.getGamePanel().getSize());
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         return (int) min(screenSize.width / fieldDimension.getWidth(), (screenSize.height) / (fieldDimension.getHeight() + 30));
     }

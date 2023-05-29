@@ -1,5 +1,8 @@
 package be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Input;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * An abstract class containing all the necessary information for the game logic to work.
  * The object contains different booleans that will be switched on or off depending on the current inputs.
@@ -7,22 +10,38 @@ package be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Input;
 public class AbsInput {
 
     // Movement controls
-    public boolean upPressed1;
-    public boolean downPressed1;
-    public boolean leftPressed1;
-    public boolean rightPressed1;
-
-    public boolean upPressed2;
-    public boolean downPressed2;
-    public boolean leftPressed2;
-    public boolean rightPressed2;
-
-    // Activity controls
-    public boolean shootPressed1;
-    public boolean shootPressed2;
-    public boolean powerUpPressed;
+    public List<Boolean> upPressed = new ArrayList<>();
+    public List<Boolean> downPressed = new ArrayList<>();
+    public List<Boolean> leftPressed = new ArrayList<>();
+    public List<Boolean> rightPressed = new ArrayList<>();
+    public List<Boolean> shootPressed = new ArrayList<>();
 
     // Menu controls
     public boolean pausePressed;
 
+    public AbsInput(int amOfPlayers) {
+        for(int i = 0; i < amOfPlayers; i++){
+            upPressed.add(false);
+            downPressed.add(false);
+            leftPressed.add(false);
+            rightPressed.add(false);
+            shootPressed.add(false);
+        }
+    }
+
+    public List<Boolean> getLeftPressed() {
+        return leftPressed;
+    }
+
+    public List<Boolean> getRightPressed() {
+        return rightPressed;
+    }
+
+    public List<Boolean> getShootPressed() {
+        return shootPressed;
+    }
+
+    public boolean isPausePressed() {
+        return pausePressed;
+    }
 }

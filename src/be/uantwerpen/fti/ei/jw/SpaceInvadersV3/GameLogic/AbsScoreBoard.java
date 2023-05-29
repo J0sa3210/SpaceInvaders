@@ -9,7 +9,7 @@ public abstract class AbsScoreBoard {
 
     public AbsScoreBoard(LinkedList<AbsPlayer> players) {
         this.players = players;
-        scoreBoardStructs = new LinkedList<ScoreBoardStruct>();
+        scoreBoardStructs = new LinkedList<>();
         for (AbsPlayer player : players) {
             scoreBoardStructs.add(new ScoreBoardStruct(player.getPlayerName(), player.getPoints(), player.getHealth()));
         }

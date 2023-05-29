@@ -12,22 +12,20 @@ package be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic;
  * @see AbsPlayer
  */
 public abstract class AbsEnemy extends AbsCreature {
-    static boolean moveRight = false; // The direction in which all the enemies will travel
-    static boolean moveDown = false; // Let all AbsEnemy objects now to move down next turn
-    private static int height;
     private static Timer bulletTimer;
     private static Timer enemyMoveTimer;
 
     public AbsEnemy(int x, int y) {
-        height = 15;
-        this.setX(x);
-        this.setY(y);
         this.setWidth(15);
-        this.setHeight(height);
-        this.setSpeed(1);
+        this.setHeight(15);
+        this.setMovementComponent(new MovementComponent(x, y, 1, this.getHeight()));
         this.setHealth(1);
-        bulletTimer = new Timer();
-        enemyMoveTimer = new Timer();
+        if (bulletTimer == null) {
+            bulletTimer = new Timer();
+        }
+        if (enemyMoveTimer == null) {
+            enemyMoveTimer = new Timer();
+        }
     }
 
     /**
@@ -46,33 +44,5 @@ public abstract class AbsEnemy extends AbsCreature {
      */
     public static Timer getEnemyMoveTimer() {
         return enemyMoveTimer;
-    }
-
-    /**
-     * Return the height of this object.
-     *
-     * @return the height of this object.
-     */
-    public int getHeight() {
-        return height;
-    }
-
-    public void move(int fieldWidth) {
-        this.moveY(this.getHeight());
-    }
-
-    /**
-     * A function that will move the object horizontally.
-     * <p>
-     * The direction is determined by the static boolean <code>moveRight</code>.
-     * This will change once one of the outer <code>AbsEnemy</code> reaches the border of the field.
-     * </p>
-     */
-    public void moveHor() {
-        if (moveRight) {
-            this.moveX(getSpeed());
-        } else {
-            this.moveX(-this.getSpeed());
-        }
     }
 }
