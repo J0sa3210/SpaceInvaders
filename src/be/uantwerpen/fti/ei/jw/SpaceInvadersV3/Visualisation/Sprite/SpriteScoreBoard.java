@@ -25,7 +25,7 @@ public class SpriteScoreBoard extends AbsScoreBoard {
         for (int i = 0; i < 2; i++) {
             JPanel tempScoreBoardPanel = new JPanel(null);
             tempScoreBoardPanel.setBounds(0, 0, scoreBoardWidth, scoreBoardHeight);
-            tempScoreBoardPanel.setBackground(Color.BLACK);
+            tempScoreBoardPanel.setBackground(new Color(0,0,0,170));
 
             try {
                 ScoreBoardStruct struct = getScoreBoardStructs().get(i);

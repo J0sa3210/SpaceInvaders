@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 
 public class SpriteGameFrame extends JFrame {
     private final int frameWidth;
+    private final int frameHeight;
     private final int headingHeight;
 
     public SpriteGameFrame(Dimension frameDimension, int cellSize, BufferedImage bgImage) {
@@ -29,12 +30,13 @@ public class SpriteGameFrame extends JFrame {
 
         // Dimensions
         frameWidth = this.getWidth();
+        frameHeight = this.getHeight();
 
 
         // Heading
         headingHeight = (30 * cellSize);
         JPanel heading = new JPanel();
-        heading.setBackground(Color.BLACK);
+        heading.setBackground(new Color(0,0,0,170));
         heading.add(new SpriteGameLabel("Space Invaders", 15 * cellSize));
         heading.setBounds(frameWidth / 3, 0, frameWidth / 3, headingHeight);
         this.add(heading);
@@ -52,7 +54,7 @@ public class SpriteGameFrame extends JFrame {
     public void add(SpriteGamePanel gamePanel) {
         JPanel panel = gamePanel.getGamePanel();
         Dimension gamePanelDimension = panel.getSize();
-        panel.setLocation((frameWidth - gamePanelDimension.width) / 2, headingHeight);
+        panel.setLocation((frameWidth - gamePanelDimension.width) / 2, headingHeight + ((frameHeight - headingHeight) - gamePanelDimension.height) / 2);
         this.add(panel);
     }
 }
