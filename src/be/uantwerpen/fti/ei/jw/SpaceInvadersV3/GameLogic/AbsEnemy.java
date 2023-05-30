@@ -16,8 +16,8 @@ public abstract class AbsEnemy extends AbsCreature {
     private static Timer enemyMoveTimer;
 
     public AbsEnemy(int x, int y) {
-        this.setWidth(15);
-        this.setHeight(15);
+        this.setWidth(16);
+        this.setHeight(16);
         this.setMovementComponent(new MovementComponent(x, y, 1, this.getHeight()));
         this.setHealth(1);
         if (bulletTimer == null) {

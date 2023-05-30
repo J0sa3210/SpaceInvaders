@@ -3,6 +3,7 @@ package be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic;
 import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Input.AbsInput;
 import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Input.KeyboardInput1;
 import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Visualisation.Java2D.J2DFactory;
+import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Visualisation.Sprite.SpriteFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -104,7 +105,7 @@ public class Game {
         fieldHeight = Integer.parseInt(settings.get(1));
 
         // Choose the type of visualisation
-        factory = new J2DFactory(fieldWidth, fieldHeight);
+        factory = new SpriteFactory(fieldWidth, fieldHeight);
 
         // Create the different Timers
         gameTimer = new Timer();
@@ -168,7 +169,7 @@ public class Game {
 
                 // If the pixel is white, all the values will be 255
                 if (red == 255 && green == 255 && blue == 255) {
-                    enemiesList.add(factory.createEnemy(x * 15, y * 15)); // This will create an enemy on the location of the pixel but in the field
+                    enemiesList.add(factory.createEnemy(x * 16, y * 16)); // This will create an enemy on the location of the pixel but in the field
                 }
             }
         }
@@ -274,7 +275,7 @@ public class Game {
 // ******************************************* CREATE POWERUP **********************************************************
 
                 // Create a powerUp object every 20 seconds
-                if (powerupTimer.getTime() > 20000) {
+                if (powerupTimer.getTime() > 10000 && powerups.isEmpty()) {
                     powerups.add(factory.createPowerUp(0, 0));
                     powerupTimer.reset();
                 }
@@ -435,5 +436,3 @@ public class Game {
         }
     }
 }
-
-//TODO: Add Sprites

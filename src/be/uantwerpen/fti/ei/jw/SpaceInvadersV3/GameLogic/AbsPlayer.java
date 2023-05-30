@@ -27,8 +27,8 @@ public abstract class AbsPlayer extends AbsCreature {
         ownColor = colors[ownId];
         this.setMovementComponent(new MovementComponent(x, y, 2, 2));
         this.input = input;
-        this.setWidth(15);
-        this.setHeight(15);
+        this.setWidth(16);
+        this.setHeight(16);
         this.setHealth(3);
         this.setDead(false);
 
@@ -139,9 +139,9 @@ public abstract class AbsPlayer extends AbsCreature {
 
     public void resetPowerup() {
         this.powerUpTimer = null;
-        //this.hasDoubleMovementSpeed = false;
-        //this.hasMitraillette = false;
-        //this.hasDoubleShootingSpeed = false;
+        this.hasDoubleMovementSpeed = false;
+        this.hasMitraillette = false;
+        this.hasDoubleShootingSpeed = false;
     }
 
     public Timer getShootTimer() {
@@ -176,5 +176,9 @@ public abstract class AbsPlayer extends AbsCreature {
             powerUpTimer.start();
         }
         shootTimer.start();
+    }
+
+    public boolean hasMitraillette() {
+        return hasMitraillette;
     }
 }

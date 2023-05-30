@@ -10,8 +10,8 @@ public abstract class AbsPowerUp extends AbsCreature {
 
     public AbsPowerUp(int x, int y) {
         this.setMovementComponent(new MovementComponent(x, y, 5, 0));
-        this.setWidth(30);
-        this.setHeight(20);
+        this.setWidth(32);
+        this.setHeight(16);
         this.setHealth(2);
         // Choose a random powerUp
         Random random = new Random();
