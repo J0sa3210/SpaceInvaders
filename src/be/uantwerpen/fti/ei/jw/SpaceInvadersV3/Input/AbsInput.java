@@ -27,6 +27,7 @@ public class AbsInput {
             rightPressed.add(false);
             shootPressed.add(false);
         }
+        pausePressed = false;
     }
 
     public List<Boolean> getLeftPressed() {
