@@ -32,10 +32,13 @@ public class SpriteScoreBoard extends AbsScoreBoard {
                 SpriteGameLabel l1 = new SpriteGameLabel(struct.name(), 30);
                 l1.setBounds(0, 0, tempScoreBoardPanel.getWidth() / 3, tempScoreBoardPanel.getHeight());
                 l1.setHorizontalAlignment(SwingConstants.CENTER);
+                l1.setOpaque(true);
                 SpriteGameLabel l2 = new SpriteGameLabel("Health: " + struct.health(), 25);
                 l2.setBounds(tempScoreBoardPanel.getWidth() / 3, 0, tempScoreBoardPanel.getWidth() / 3, tempScoreBoardPanel.getHeight());
+                l2.setOpaque(true);
                 SpriteGameLabel l3 = new SpriteGameLabel("Points: " + struct.points(), 25);
                 l3.setBounds(2 * tempScoreBoardPanel.getWidth() / 3, 0, tempScoreBoardPanel.getWidth() / 3, tempScoreBoardPanel.getHeight());
+                l3.setOpaque(true);
 
                 tempScoreBoardPanel.add(l1);
                 tempScoreBoardPanel.add(l2);

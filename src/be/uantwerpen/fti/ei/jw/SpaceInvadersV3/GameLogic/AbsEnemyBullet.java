@@ -6,7 +6,7 @@ public abstract class AbsEnemyBullet extends AbsBullet {
 
     public AbsEnemyBullet(AbsEnemy e) {
         this.setWidth(2);
-        this.setHeight(5);
+        this.setHeight(6);
         Point ePos = e.getMovementComponent().getPosition();
         this.setMovementComponent(new MovementComponent(ePos.x + e.getWidth() / 2 - this.getWidth()/2,ePos.y + e.getHeight(),0,5));
         this.setDamage(1);

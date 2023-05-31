@@ -5,22 +5,31 @@ import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic.AbsEnemy;
 import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic.AbsEnemyBullet;
 import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic.AbsFactory;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class SpriteEnemyBullet extends AbsEnemyBullet {
     SpriteFactory f;
+    BufferedImage image;
 
     public SpriteEnemyBullet(AbsEnemy e, AbsFactory f) {
         super(e);
         this.f = (SpriteFactory) f;
+        try {
+            image = ImageIO.read(new File("src/res/sprites/bullet_green.png"));
+            image = SpriteVisualManager.resize(image, this.getWidth() * this.f.getScale(), this.getHeight() * this.f.getScale());
+        } catch (IOException ignored) {
+        }
     }
 
     @Override
     public void visualize() {
         Graphics2D g2d = f.getG2d();
-        double scale = f.getScale();
-        g2d.setColor(Color.WHITE);
+        int scale = f.getScale();
         Point pos = getMovementComponent().getPosition();
-        g2d.fillRect((int) (pos.getX() * scale), (int) (pos.getY() * scale), (int) (this.getWidth() * scale), (int) (this.getHeight() * scale));
+        g2d.drawImage(image, pos.x * scale, pos.y * scale, null);
     }
 }

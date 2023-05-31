@@ -38,12 +38,14 @@ public class Game {
     AbsInput input;
     MovementSystem movementUpdater = new MovementSystem();
 
-
     // Variables concerning the game environment
     AbsFactory factory;
     AbsVisualManager visualManager;
     int fieldWidth, fieldHeight;
 
+    // Variables concerning the sound
+    SoundSystem soundSystem = new SoundSystem();
+    List<SoundComponent> soundComponents;
 
     // Game elements
     LinkedList<AbsPlayer> players = new LinkedList<>();
@@ -221,7 +223,8 @@ public class Game {
 
             // Create bullets if player shoots
             if (p.shoots() && p.getShootTimer().getTime() >= 500 / p.getShootingBonus()) {
-                playerBullets.add(factory.createPlayerBullet(p));
+                AbsPlayerBullet bullet = factory.createPlayerBullet(p);
+                playerBullets.add(bullet);
                 p.getShootTimer().reset();
             }
         }
@@ -259,7 +262,7 @@ public class Game {
         while (playing) {
             if (!input.pausePressed) {
                 powerupTimer.start();
-                for (AbsPlayer player : players){
+                for (AbsPlayer player : players) {
                     player.startTimers();
                 }
 
@@ -277,6 +280,7 @@ public class Game {
                 // Create a powerUp object every 20 seconds
                 if (powerupTimer.getTime() > 10000 && powerups.isEmpty()) {
                     powerups.add(factory.createPowerUp(0, 0));
+                    players.get(0).getPowerUp("Mitraillette");
                     powerupTimer.reset();
                 }
 
@@ -410,6 +414,9 @@ public class Game {
                 scoreBoard.visualize();
 
                 visualManager.render();   // Show the bufferedImage on the gamePanel
+
+                soundComponents = playerBullets.stream().map(AbsBullet::getSound).collect(Collectors.toList());
+                soundSystem.update(soundComponents);
 
                 //SoundSystem.update(playerBullets.stream().map(AbsBullet::getSoundComponent).collect(Collectors.toList()));
 
