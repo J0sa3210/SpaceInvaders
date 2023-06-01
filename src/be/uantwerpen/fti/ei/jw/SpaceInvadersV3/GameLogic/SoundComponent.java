@@ -8,7 +8,7 @@ public class SoundComponent {
     private Boolean mustPlay, mustLoop, mustStop, isLooped;
 
     public SoundComponent(String url) {
-        mustPlay = false;
+        mustPlay = true;
         mustLoop = false;
         isLooped = false;
         mustStop = false;

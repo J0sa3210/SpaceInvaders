@@ -19,11 +19,10 @@ public class SpritePlayerBullet extends AbsPlayerBullet {
         this.f = (SpriteFactory) f;
         try {
             if (p.getOwnColor() == Color.RED) {
-                image = ImageIO.read(new File("src/res/sprites/bullet_red.png"));
+                image = ImageIO.read(new File("src/res/sprites/Bullets/Bullet_Red" + 2 * this.f.getScale() + "x" + 6 * this.f.getScale() + ".png"));
             } else {
-                image = ImageIO.read(new File("src/res/sprites/bullet_blue.png"));
+                image = ImageIO.read(new File("src/res/sprites/Bullets/Bullet_Blue" + 2 * this.f.getScale() + "x" + 6 * this.f.getScale() + ".png"));
             }
-            image = SpriteVisualManager.resize(image, this.getWidth() * this.f.getScale(), this.getHeight() * this.f.getScale());
         } catch (IOException ignored) {
         }
 
@@ -33,7 +32,6 @@ public class SpritePlayerBullet extends AbsPlayerBullet {
     public void visualize() {
         Graphics2D g2d = f.getG2d();
         int scale = f.getScale();
-        g2d.setColor(Color.GREEN);
         Point pos = getMovementComponent().getPosition();
         g2d.drawImage(image, pos.x * scale, pos.y * scale, null);
     }

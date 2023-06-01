@@ -25,7 +25,7 @@ public class SpriteVisualManager extends AbsVisualManager {
         paused = new SpriteGameLabel("Paused", 50);
     }
 
-    public static BufferedImage resize(BufferedImage image, int newWidth, int newHeight) {
+    public BufferedImage resize(BufferedImage image, int newWidth, int newHeight) {
         BufferedImage resizedImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = resizedImage.createGraphics();
         g2d.drawImage(image, 0, 0, newWidth, newHeight, null);
@@ -106,6 +106,4 @@ public class SpriteVisualManager extends AbsVisualManager {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         return (int) min(screenSize.width / fieldDimension.getWidth(), (screenSize.height) / (fieldDimension.getHeight() + 30));
     }
-
-
 }

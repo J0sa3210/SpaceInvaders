@@ -5,16 +5,27 @@ import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic.AbsPlayer;
 import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic.AbsScoreBoard;
 import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic.ScoreBoardStruct;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 
 public class SpriteScoreBoard extends AbsScoreBoard {
     LinkedList<JPanel> scoreBoardPanels;
+    Image hearthRed, hearthBlue;
 
     public SpriteScoreBoard(LinkedList<AbsPlayer> players) {
         super(players);
         scoreBoardPanels = new LinkedList<>();
+        try {
+            hearthRed = ImageIO.read(new File("src/res/sprites/Hearth_red.png"));
+            hearthBlue = ImageIO.read(new File("src/res/sprites/Hearth_blue.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

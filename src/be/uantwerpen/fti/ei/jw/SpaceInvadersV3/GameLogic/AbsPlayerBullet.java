@@ -24,7 +24,7 @@ public abstract class AbsPlayerBullet extends AbsBullet {
         this.setMovementComponent(new MovementComponent((int) (pPos.getX() + p.getWidth() / 2 - this.getWidth() / 2), (int) pPos.getY(), 0, -5));
         this.setDamage(1);
         this.shooter = p;
-        setSound(new SoundComponent("src/res/sounds/8-bit-explosion.wav"));
+        setSound(new SoundComponent("src/res/sounds/PlayerBullet_shoot.wav"));
         this.getSound().setMustPlay(true);
         this.getSound().adjustVolume(-15f);
     }

@@ -2,7 +2,6 @@ package be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic;
 
 import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Input.AbsInput;
 import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Input.KeyboardInput1;
-import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Visualisation.Java2D.J2DFactory;
 import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Visualisation.Sprite.SpriteFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -27,7 +26,7 @@ public class Game {
     Random random;
     AbsScoreBoard scoreBoard;
     boolean victory, gameOver, playing;
-    int currentRound, totalRounds;
+    int currentLevel, totalLevels;
 
     // Game timings
     int FPS = 60;
@@ -45,7 +44,8 @@ public class Game {
 
     // Variables concerning the sound
     SoundSystem soundSystem = new SoundSystem();
-    List<SoundComponent> soundComponents;
+    List<SoundComponent> soundComponents = new LinkedList<>();
+
 
     // Game elements
     LinkedList<AbsPlayer> players = new LinkedList<>();
@@ -74,7 +74,7 @@ public class Game {
         createGameEnvironment();
 
         // Load first level
-        loadLevel(currentRound++);
+        loadLevel(currentLevel++);
 
         // Start Game
         startGame();
@@ -123,8 +123,11 @@ public class Game {
         playing = false;    // This will chane when the game is paused
 
         // Setup amount of rounds
-        currentRound = 0;   // This is the current round that will be loaded
-        totalRounds = 2;    // This is the total amount of rounds the player must survive to become victorious
+        currentLevel = 0;   // This is the current round that will be loaded
+        totalLevels = 4;    // This is the total amount of rounds the player must survive to become victorious
+
+        // Setup sounds
+        soundSystem.startBackgroundMusic();
 
     }
 
@@ -178,14 +181,15 @@ public class Game {
     }
 
     public void nextRound() {
-        if (currentRound == totalRounds) {
+        if (currentLevel == totalLevels) {
             playing = false;
             victory = true;
         } else {
+            soundSystem.playLevelPassedSound();
             players.forEach(AbsPlayer::resetPowerup);
             playerBullets.clear();
             enemyBullets.clear();
-            loadLevel(currentRound++);
+            loadLevel(currentLevel++);
         }
     }
 
@@ -196,12 +200,14 @@ public class Game {
         gameLoop();
         if (victory) {
             System.out.println("Victorious");
+            soundSystem.playVictorySound();
             while (true) {
 
             }
         }
         if (gameOver) {
             System.out.println("GameOver");
+            soundSystem.playGameOverSound();
             while (true) {
 
             }
@@ -224,6 +230,7 @@ public class Game {
             // Create bullets if player shoots
             if (p.shoots() && p.getShootTimer().getTime() >= 500 / p.getShootingBonus()) {
                 AbsPlayerBullet bullet = factory.createPlayerBullet(p);
+                soundComponents.add(bullet.getSound());
                 playerBullets.add(bullet);
                 p.getShootTimer().reset();
             }
@@ -242,7 +249,10 @@ public class Game {
 
                 // 10% chance that an enemy shoots
                 if (rand < 10) {
-                    enemyBullets.add(factory.createEnemyBullet(enemy));
+                    AbsEnemyBullet enemyBullet = factory.createEnemyBullet(enemy);
+                    soundComponents.add(enemyBullet.getSound());
+                    enemyBullets.add(enemyBullet);
+
                 }
             }
             AbsEnemy.getBulletTimer().reset();
@@ -280,7 +290,6 @@ public class Game {
                 // Create a powerUp object every 20 seconds
                 if (powerupTimer.getTime() > 10000 && powerups.isEmpty()) {
                     powerups.add(factory.createPowerUp(0, 0));
-                    players.get(0).getPowerUp("Mitraillette");
                     powerupTimer.reset();
                 }
 
@@ -325,6 +334,7 @@ public class Game {
                             powerUp.damagedBy(playerBullet);
                             if (powerUp.isDead()) {
                                 playerBullet.getShooter().getPowerUp(powerUp.getPowerUp()); // Give the power from the powerUp to the shooter of the playerBullet that hit it
+                                soundComponents.add(powerUp.getDeadSound());
                                 it_powerups.remove();
                                 powerupTimer.reset();
                             }
@@ -346,6 +356,7 @@ public class Game {
 
                             // If enemy has no health anymore, delete it
                             if (enemy.isDead()) {
+                                soundComponents.add(enemy.getDeadSound());
                                 it_enemies.remove();
                                 playerBullet.getShooter().addPoints(1);
                             }
@@ -415,7 +426,6 @@ public class Game {
 
                 visualManager.render();   // Show the bufferedImage on the gamePanel
 
-                soundComponents = playerBullets.stream().map(AbsBullet::getSound).collect(Collectors.toList());
                 soundSystem.update(soundComponents);
 
                 //SoundSystem.update(playerBullets.stream().map(AbsBullet::getSoundComponent).collect(Collectors.toList()));
@@ -443,3 +453,8 @@ public class Game {
         }
     }
 }
+
+// TODO: add animations
+// TODO: add images in scoreBoard
+// TODO: add gameOver and Victory screen
+

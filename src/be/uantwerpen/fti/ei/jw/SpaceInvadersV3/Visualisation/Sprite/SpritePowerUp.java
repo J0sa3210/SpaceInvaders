@@ -11,28 +11,27 @@ import java.io.IOException;
 
 public class SpritePowerUp extends AbsPowerUp {
     SpriteFactory f;
-    BufferedImage image;
+    BufferedImage imageLeft, imageRight;
 
     public SpritePowerUp(int x, int y, AbsFactory f) {
         super(x, y);
         this.f = (SpriteFactory) f;
-
+        try {
+            imageLeft = ImageIO.read(new File("src/res/sprites/Enemy/Powerup_left" + 32 * this.f.getScale() + "x" + 16 * this.f.getScale() + ".png"));
+            imageRight = ImageIO.read(new File("src/res/sprites/Enemy/Powerup_right" + 32 * this.f.getScale() + "x" + 16 * this.f.getScale() + ".png"));
+        } catch (IOException ignored) {
+        }
     }
 
     @Override
     public void visualize() {
         Graphics2D g2d = f.getG2d();
         int scale = f.getScale();
-        try {
-            if (this.getMovementComponent().getSpeedX() < 0) {
-                image = ImageIO.read(new File("src/res/sprites/Enemy/alien2_left.png"));
-            } else {
-                image = ImageIO.read(new File("src/res/sprites/Enemy/alien2_right.png"));
-            }
-            image = SpriteVisualManager.resize(image, this.getWidth() * scale, this.getHeight() * scale);
-        } catch (IOException ignored) {
-        }
         Point pos = getMovementComponent().getPosition();
-        g2d.drawImage(image, pos.x * scale, pos.y * scale, null);
+        if (this.getMovementComponent().getSpeedX() < 0) {
+            g2d.drawImage(imageLeft, pos.x * scale, pos.y * scale, null);
+        } else {
+            g2d.drawImage(imageRight, pos.x * scale, pos.y * scale, null);
+        }
     }
 }

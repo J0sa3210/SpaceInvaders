@@ -19,8 +19,7 @@ public class SpriteEnemyBullet extends AbsEnemyBullet {
         super(e);
         this.f = (SpriteFactory) f;
         try {
-            image = ImageIO.read(new File("src/res/sprites/bullet_green.png"));
-            image = SpriteVisualManager.resize(image, this.getWidth() * this.f.getScale(), this.getHeight() * this.f.getScale());
+            image = ImageIO.read(new File("src/res/sprites/Bullets/Bullet_Green" + 2 * this.f.getScale() + "x" + 6 * this.f.getScale() +".png"));
         } catch (IOException ignored) {
         }
     }

@@ -10,6 +10,8 @@ public abstract class AbsEnemyBullet extends AbsBullet {
         Point ePos = e.getMovementComponent().getPosition();
         this.setMovementComponent(new MovementComponent(ePos.x + e.getWidth() / 2 - this.getWidth()/2,ePos.y + e.getHeight(),0,5));
         this.setDamage(1);
+        setSound(new SoundComponent("src/res/sounds/PlayerBullet_test.wav"));
+        this.getSound().adjustVolume(-20f);
     }
 
     @Override
