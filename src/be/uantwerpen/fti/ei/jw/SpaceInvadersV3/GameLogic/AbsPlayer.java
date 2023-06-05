@@ -13,9 +13,12 @@ import java.awt.*;
  * </p>
  */
 public abstract class AbsPlayer extends AbsCreature {
-
     // Possible colors
-    private static final Color[] colors = new Color[]{Color.BLUE, Color.RED, Color.ORANGE};
+    private static final Color[] colors =
+            new Color[]{
+                    Color.BLUE,
+                    Color.RED,
+                    Color.ORANGE};
     private static int playerId;
     private final AbsInput input;
     // Values concerning unique values

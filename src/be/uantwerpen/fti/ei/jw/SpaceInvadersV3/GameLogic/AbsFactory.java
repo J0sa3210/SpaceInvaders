@@ -10,7 +10,6 @@ import java.util.LinkedList;
  * <p>
  * This class provides abstract methods for creating different game objects such as enemies, players, bullets, power-ups, scoreboards, and visual managers. Each subclass of `AbsFactory` should implement these methods to create specific types of objects.
  * </p>
- *
  */
 public abstract class AbsFactory {
 
@@ -48,9 +47,7 @@ public abstract class AbsFactory {
      * @param e The enemy object for which to create the bullet
      * @return The created enemy bullet object
      */
-    public abstract AbsEnemyBullet createEnemyBullet(AbsEnemy e
-
-    );
+    public abstract AbsEnemyBullet createEnemyBullet(AbsEnemy e);
 
     /**
      * Creates a power-up object at the specified coordinates.
@@ -86,5 +83,12 @@ public abstract class AbsFactory {
      */
     public abstract AbsVisualManager getVisualManager();
 
+    /**
+     * Creates a boss enemy object at the specified coordinates
+     *
+     * @param x The x-coordinate of the enemy
+     * @param y The y-coordinate of the enemy
+     * @return The created boss enemy object
+     */
     public abstract AbsEnemy createBoss(int x, int y);
 }

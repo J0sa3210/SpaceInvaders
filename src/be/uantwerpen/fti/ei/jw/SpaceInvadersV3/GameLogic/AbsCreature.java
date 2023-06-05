@@ -6,13 +6,7 @@ package be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic;
  * @see AbsEntity
  */
 public abstract class AbsCreature extends AbsEntity {
-    /**
-     * The amount of health points. If this amounts reaches 0, the <code>AbsCreature</code> is dead and removed from the game.
-     */
     private int health;
-    /**
-     * This will indicate if the <code>AbsCreature</code> is dead or not.
-     */
     private boolean isDead;
 
     /**

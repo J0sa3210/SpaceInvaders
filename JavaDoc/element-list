@@ -1,0 +1,7 @@
+unnamed package
+be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic
+be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic.Components
+be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic.Systems
+be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Input
+be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Visualisation.Java2D
+be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Visualisation.Sprite

@@ -57,6 +57,7 @@ public class Game {
 
     // Game elements
     int amountOfPlayers;
+    String[] playerNames = new String[2];
     LinkedList<AbsPlayer> playersList = new LinkedList<>();
     LinkedList<AbsEnemy> enemiesList = new LinkedList<>();
     LinkedList<AbsBullet> playerBulletsList = new LinkedList<>();
@@ -67,7 +68,6 @@ public class Game {
     public Game() {
         // Ask user input
         askUserInput();
-
 
         // Read config files
         readConfigFiles();
@@ -106,24 +106,33 @@ public class Game {
         System.out.println("Welcome to Space Invaders!!");
 
         // Get the values from user
-        getAmountOfPlayers(scanner);
         getFactoryType(scanner);
+        getAmountOfPlayers(scanner);
+        getPlayerNames(scanner);
 
         // Start game
         System.out.println("Please minimize the IntelliJ IDE. The game will start in 2 seconds.");
         System.out.println("Thanks and enjoy the game!");
     }
 
+    private void getPlayerNames(Scanner scanner) {
+        for (int i = 0; i < amountOfPlayers; i++) {
+            System.out.println("What is the name of player " + (i + 1) + "?");
+            String playername = scanner.nextLine();
+            playerNames[i] = playername;
+        }
+    }
+
     /**
      * This method will ask for the amount of players the user wants. This method will keep repeating until a valid answer (1 or 2) has been given
-     * @param scanner The scanner to read the users input
      *
+     * @param scanner The scanner to read the users input
      * @see AbsPlayer
      */
-    private void getAmountOfPlayers(Scanner scanner){
+    private void getAmountOfPlayers(Scanner scanner) {
         System.out.println("Please choose how many players you would like (1 or 2): ");
         amountOfPlayers = Integer.parseInt(scanner.nextLine());
-        if (amountOfPlayers != 1 && amountOfPlayers != 2){
+        if (amountOfPlayers != 1 && amountOfPlayers != 2) {
             getAmountOfPlayers(scanner);
         }
     }
@@ -131,18 +140,18 @@ public class Game {
     /**
      * This method will ask for the type of visualisation the user wants.
      * <p>
-     *     Based on that type, an instance of an {@link AbsFactory} will be made.
-     *     This method will keep repeating until a valid answer (1 or 2) has been given
+     * Based on that type, an instance of an {@link AbsFactory} will be made.
+     * This method will keep repeating until a valid answer (1 or 2) has been given
      * </p>
-     * @param scanner The scanner to read the users input
      *
+     * @param scanner The scanner to read the users input
      * @see J2DFactory
      * @see SpriteFactory
      */
-    private void getFactoryType(Scanner scanner){
+    private void getFactoryType(Scanner scanner) {
         System.out.println("Next, choose what type of visualisation you want Sprite (1) or J2D (2): ");
         int choice = Integer.parseInt(scanner.nextLine());
-        if (choice == 1){
+        if (choice == 1) {
             typeOfFactory = "Sprite";
         } else if (choice == 2) {
             typeOfFactory = "J2D";
@@ -173,9 +182,9 @@ public class Game {
      */
     public void loadVariables() {
         // Choose the type of visualization
-        if (typeOfFactory.equals("Sprite")){
+        if (typeOfFactory.equals("Sprite")) {
             factory = new SpriteFactory(fieldWidth, fieldHeight, this);
-        } else if (typeOfFactory.equals("J2D")){
+        } else if (typeOfFactory.equals("J2D")) {
             factory = new J2DFactory(fieldWidth, fieldHeight, this);
         }
 
@@ -207,11 +216,11 @@ public class Game {
         // Choose the type of input
         if (amountOfPlayers == 1) {
             input = new Keyboard1PlayerInput();
-            playersList.add(factory.createPlayer(100, fieldHeight - 15, "Player1", input));
+            playersList.add(factory.createPlayer(100, fieldHeight - 15, playerNames[0], input));
         } else if (amountOfPlayers == 2) {
             input = new Keyboard2PlayerInput();
-            playersList.add(factory.createPlayer(100, fieldHeight - 15, "Player1", input));
-            playersList.add(factory.createPlayer(50, fieldHeight - 15, "Player2", input));
+            playersList.add(factory.createPlayer(100, fieldHeight - 15, playerNames[0], input));
+            playersList.add(factory.createPlayer(50, fieldHeight - 15, playerNames[1], input));
         }
     }
 
@@ -590,7 +599,7 @@ public class Game {
         while (playing) {
 
             // When not paused, we update the movement, check for collisions and draw it
-            if (!input.pausePressed) {
+            if (!input.isPausePressed()) {
                 resumeGame();
 
                 if (checkNextLevel()) {

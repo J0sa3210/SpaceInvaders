@@ -9,19 +9,19 @@ public class J2DBoss extends AbsBoss {
     J2DFactory f;
 
     /**
-     * Constructs a new AbsEnemy object with given x and y position.
-     * The object will have a width and height of 16 pixels, and a health of 1.
-     * A new movement component will be created with a speed of 1 and a height equal to the object's height.
-     * The dead sound will be set and initialized with a volume of -30 dB.
-     * If there is no bulletTimer and enemyMoveTimer, a new instance of each will be created.
+     * Constructs a new AbsBoss object with given x and y position.
+     * This enemy is 64 cells wide and high and also has 20 health points
+     * The boss will also shoot 3 bullets like a shotgun and has a 50% chance of firing
      *
      * @param x The x position of the AbsEnemy.
      * @param y The y position of the AbsEnemy.
+     * @param f The {@link J2DFactory} that will draw the object
      */
     public J2DBoss(int x, int y, AbsFactory f) {
         super(x, y);
         this.f = (J2DFactory) f;
     }
+
 
     @Override
     public void visualize() {

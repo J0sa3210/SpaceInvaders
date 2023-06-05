@@ -9,35 +9,11 @@ import java.util.List;
  */
 public class AbsInput {
 
-    /**
-     * A list of booleans indicating whether the "up" button is pressed for each player.
-     */
-    public List<Boolean> upPressed = new ArrayList<>();
+    private final List<Boolean> leftPressed = new ArrayList<>();
+    private final List<Boolean> rightPressed = new ArrayList<>();
+    private final List<Boolean> shootPressed = new ArrayList<>();
 
-    /**
-     * A list of booleans indicating whether the "down" button is pressed for each player.
-     */
-    public List<Boolean> downPressed = new ArrayList<>();
-
-    /**
-     * A list of booleans indicating whether the "left" button is pressed for each player.
-     */
-    public List<Boolean> leftPressed = new ArrayList<>();
-
-    /**
-     * A list of booleans indicating whether the "right" button is pressed for each player.
-     */
-    public List<Boolean> rightPressed = new ArrayList<>();
-
-    /**
-     * A list of booleans indicating whether the "shoot" button is pressed for each player.
-     */
-    public List<Boolean> shootPressed = new ArrayList<>();
-
-    /**
-     * A boolean indicating whether the "pause" button is pressed.
-     */
-    public boolean pausePressed;
+    private boolean pausePressed;
 
     /**
      * Constructs an <Code>AbsInput</Code> object with the specified number of players.
@@ -46,13 +22,11 @@ public class AbsInput {
      */
     public AbsInput(int amOfPlayers) {
         for (int i = 0; i < amOfPlayers; i++) {
-            upPressed.add(false);
-            downPressed.add(false);
             leftPressed.add(false);
             rightPressed.add(false);
             shootPressed.add(false);
         }
-        pausePressed = false;
+        pausePressed = true;
     }
 
     /**
@@ -80,5 +54,21 @@ public class AbsInput {
      */
     public List<Boolean> getShootPressed() {
         return shootPressed;
+    }
+
+    /**
+     * Returns whether the "pause" button is pressed or not
+     *
+     * @return is "true" when the pause button is pressed, "false" othwerise.
+     */
+    public boolean isPausePressed() {
+        return pausePressed;
+    }
+
+    /**
+     * Will toggle between "true" or "false" whenever the pause-key is pressed
+     */
+    public void togglePausePressed() {
+        this.pausePressed = !this.pausePressed;
     }
 }

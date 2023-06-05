@@ -97,7 +97,6 @@ public class J2DVisualManager extends AbsVisualManager{
 
         // Make frame visible
         gameFrame.pack();
-        gameFrame.setUndecorated(true);
         gameFrame.setVisible(true);
     }
 

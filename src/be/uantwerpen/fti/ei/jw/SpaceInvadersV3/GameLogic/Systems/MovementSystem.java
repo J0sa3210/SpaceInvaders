@@ -29,9 +29,13 @@ public class MovementSystem {
      * @param enemy      The enemy object being updated.
      * @param fieldWidth The width of the game field.
      */
-    public void updateEnemies(List<MovementComponent> components, AbsEnemy enemy, int fieldWidth) {
-        int min = components.stream().mapToInt(MovementComponent::getPosX).min().getAsInt();
-        int max = components.stream().mapToInt(MovementComponent::getPosX).max().getAsInt();
+    public void updateEnemies(List<MovementComponent> components,
+                              AbsEnemy enemy,
+                              int fieldWidth) {
+        int min = components.stream().mapToInt(MovementComponent::getPosX)
+                .min().getAsInt();
+        int max = components.stream().mapToInt(MovementComponent::getPosX)
+                .max().getAsInt();
         for (MovementComponent component : components) {
             if (min == 0 || max + enemy.getWidth() >= fieldWidth) {
                 component.setSpeedX(component.getSpeedX() * -1);
@@ -60,7 +64,9 @@ public class MovementSystem {
      * @param powerUp    The power-up object being updated.
      * @param fieldWidth The width of the game field.
      */
-    public void updatePowerup(List<MovementComponent> components, AbsPowerUp powerUp, int fieldWidth) {
+    public void updatePowerup(List<MovementComponent> components,
+                              AbsPowerUp powerUp,
+                              int fieldWidth) {
         for (MovementComponent component : components) {
             component.setPosX(component.getPosX() + component.getSpeedX());
             if (component.getPosX() == 0 || component.getPosX() + powerUp.getWidth() >= fieldWidth) {
@@ -76,7 +82,9 @@ public class MovementSystem {
      * @param fieldWidth The width of the game field.
      * @param input      The input object representing the player's input.
      */
-    public void updatePlayers(LinkedList<AbsPlayer> players, int fieldWidth, AbsInput input) {
+    public void updatePlayers(LinkedList<AbsPlayer> players,
+                              int fieldWidth,
+                              AbsInput input) {
         for (AbsPlayer player : players) {
             Point pos = player.getMovementComponent().getPosition();
             MovementComponent component = player.getMovementComponent();

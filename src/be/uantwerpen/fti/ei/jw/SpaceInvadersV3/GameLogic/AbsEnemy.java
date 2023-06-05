@@ -13,19 +13,8 @@ import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic.Components.SoundCompone
  * @see AbsPlayer
  */
 public abstract class AbsEnemy extends AbsCreature {
-    /**
-     * A Timer object used to control the firing rate of enemy bullets.
-     */
     private static Timer bulletTimer;
-
-    /**
-     * A Timer object used to control the movement rate of enemies on the screen.
-     */
     private static Timer enemyMoveTimer;
-
-    /**
-     * A SoundComponent object representing the sound played when the enemy is defeated.
-     */
     private final SoundComponent deadSound;
 
     /**

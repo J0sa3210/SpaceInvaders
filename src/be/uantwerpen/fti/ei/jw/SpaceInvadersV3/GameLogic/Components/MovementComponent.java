@@ -8,8 +8,8 @@ import java.awt.*;
  * It tracks the position and speed of the object along the X and Y axes.
  */
 public class MovementComponent {
-    private final int speedY; // The speed of the object along the X and Y axes
-    private int posX, posY; // The current position of the object
+    private final int speedY;
+    private int posX, posY;
     private int speedX;
 
     /**
