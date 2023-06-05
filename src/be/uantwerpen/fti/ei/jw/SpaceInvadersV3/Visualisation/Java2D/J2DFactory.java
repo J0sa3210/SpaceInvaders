@@ -28,6 +28,19 @@ public class J2DFactory extends AbsFactory {
     }
 
     /**
+     * Creates an {@link J2DEnemy} object with the specified coordinates.
+     *
+     * @param x The x-coordinate of the enemy.
+     * @param y The y-coordinate of the enemy.
+     * @return The created enemy.
+     * @see AbsEnemy
+     */
+    @Override
+    public AbsEnemy createEnemy(int x, int y) {
+        return new J2DEnemy(x, y, this);
+    }
+
+    /**
      * Creates an {@link J2DEnemyBullet} object associated with the specified enemy.
      *
      * @param enemy The enemy that fired the bullet.
@@ -63,19 +76,6 @@ public class J2DFactory extends AbsFactory {
     @Override
     public AbsScoreBoard createScoreBoard(LinkedList<AbsPlayer> players) {
         return new J2DScoreBoard(players);
-    }
-
-    /**
-     * Creates an {@link J2DEnemy} object with the specified coordinates.
-     *
-     * @param x The x-coordinate of the enemy.
-     * @param y The y-coordinate of the enemy.
-     * @return The created enemy.
-     * @see AbsEnemy
-     */
-    @Override
-    public AbsEnemy createEnemy(int x, int y) {
-        return new J2DEnemy(x, y, this);
     }
 
     /**

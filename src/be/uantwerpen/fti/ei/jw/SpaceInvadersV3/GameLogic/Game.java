@@ -34,8 +34,8 @@ public class Game {
     int totalLevels;
 
     // Game timings
-    int FPS = 40;
-    long frameInterval = 1000 / FPS;
+    int FPS;
+    long frameInterval;
     Timer gameTimer;
     Timer powerupTimer;
 
@@ -130,7 +130,7 @@ public class Game {
      * @see AbsPlayer
      */
     private void getAmountOfPlayers(Scanner scanner) {
-        System.out.println("Please choose how many players you would like (1 or 2): ");
+        System.out.println("Next, choose how many players you would like (1 or 2): ");
         amountOfPlayers = Integer.parseInt(scanner.nextLine());
         if (amountOfPlayers != 1 && amountOfPlayers != 2) {
             getAmountOfPlayers(scanner);
@@ -149,7 +149,7 @@ public class Game {
      * @see SpriteFactory
      */
     private void getFactoryType(Scanner scanner) {
-        System.out.println("Next, choose what type of visualisation you want Sprite (1) or J2D (2): ");
+        System.out.println("Please, choose what type of visualisation you want Sprite (1) or J2D (2): ");
         int choice = Integer.parseInt(scanner.nextLine());
         if (choice == 1) {
             typeOfFactory = "Sprite";
@@ -168,6 +168,8 @@ public class Game {
             Properties properties = new Properties();
             properties.load(input);
 
+            FPS = Integer.parseInt(properties.getProperty("FPS"));
+            frameInterval = 1000 / FPS;
             fieldWidth = Integer.parseInt(properties.getProperty("fieldWidth"));
             fieldHeight = Integer.parseInt(properties.getProperty("fieldHeight"));
             currentLevel = Integer.parseInt(properties.getProperty("startAtLevel"));
@@ -243,7 +245,8 @@ public class Game {
     public void loadLevel(int round) {
         BufferedImage lvl;
         try {
-            lvl = ImageIO.read(new File("src/res/levels/Level" + round + ".png")); // Reads file and converts it to a BufferedImage
+            // Reads file and converts it to a BufferedImage
+            lvl = ImageIO.read(new File("src/res/levels/Level" + round + ".png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -256,15 +259,18 @@ public class Game {
             for (int y = 0; y < h; y++) {
                 int pixel = lvl.getRGB(x, y);
 
-                // This will shift the value from every pixel to a range between 0 and 255 using the arithmetic shift and bit-and functions
+                // This will shift the value from every pixel to a range between 0 and 255
+                // using the arithmetic shift and bit-and functions
                 int red = (pixel >> 16) & 0xff;
                 int green = (pixel >> 8) & 0xff;
                 int blue = (pixel) & 0xff;
 
                 // If the pixel is white, all the values will be 255
                 if (red == 255 && green == 255 && blue == 255) {
-                    enemiesList.add(factory.createEnemy(x * 16, y * 16)); // This will create an enemy on the location of the pixel but in the field
+                    // This will create an enemy on the location of the pixel but in the field
+                    enemiesList.add(factory.createEnemy(x * 16, y * 16));
                 } else if (red == 255 && green == 0 && blue == 0) {
+                    // This will create an enemy Boss on the location of the pixel but in the field
                     enemiesList.add(factory.createBoss(x * 16, y * 16));
                 }
             }

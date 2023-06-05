@@ -25,6 +25,18 @@ public class SpriteFactory extends AbsFactory {
     }
 
     /**
+     * Creates an enemy sprite at the specified position.
+     *
+     * @param x The x-coordinate of the enemy.
+     * @param y The y-coordinate of the enemy.
+     * @return The created enemy sprite.
+     */
+    @Override
+    public AbsEnemy createEnemy(int x, int y) {
+        return new SpriteEnemy(x, y, this);
+    }
+
+    /**
      * Creates an enemy bullet sprite associated with the specified enemy.
      *
      * @param enemy The enemy that fired the bullet.
@@ -56,18 +68,6 @@ public class SpriteFactory extends AbsFactory {
     @Override
     public AbsScoreBoard createScoreBoard(LinkedList<AbsPlayer> players) {
         return new SpriteScoreBoard(players);
-    }
-
-    /**
-     * Creates an enemy sprite at the specified position.
-     *
-     * @param x The x-coordinate of the enemy.
-     * @param y The y-coordinate of the enemy.
-     * @return The created enemy sprite.
-     */
-    @Override
-    public AbsEnemy createEnemy(int x, int y) {
-        return new SpriteEnemy(x, y, this);
     }
 
     /**

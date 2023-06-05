@@ -31,13 +31,20 @@ public class J2DPowerUp extends AbsPowerUp {
      */
     @Override
     public void visualize() {
-        Graphics2D g2d = f.getG2d(); // Get the Graphics2D object from the factory
-        int scale = f.getScale(); // Get the scale from the factory
-        g2d.setColor(Color.BLUE); // Set the color of the graphics object to blue
+        // Get the Graphics2D object from the factory
+        Graphics2D g2d = f.getG2d();
+        // Get the scale from the factory
+        int scale = f.getScale();
+        // Set the color of the graphics object to blue
+        g2d.setColor(Color.BLUE);
         if (this.getHealth() == 1) {
-            g2d.setColor(Color.CYAN); // If the power-up has low health, set the color to cyan
+            // If the power-up has low health, set the color to cyan
+            g2d.setColor(Color.CYAN);
         }
-        Point pos = getMovementComponent().getPosition(); // Get the position of the power-up
-        g2d.fillRect((int) (pos.getX() * scale), (int) (pos.getY() * scale), this.getWidth() * scale, this.getHeight() * scale); // Draw a filled rectangle representing the power-up on the screen
+        // Get the position of the power-up
+        Point pos = getMovementComponent().getPosition();
+        // Draw a filled rectangle representing the power-up on the screen
+        g2d.fillRect((int) (pos.getX() * scale), (int) (pos.getY() * scale),
+                this.getWidth() * scale, this.getHeight() * scale);
     }
 }

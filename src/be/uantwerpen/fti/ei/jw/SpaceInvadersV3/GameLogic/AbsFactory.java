@@ -5,10 +5,13 @@ import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Input.AbsInput;
 import java.util.LinkedList;
 
 /**
- * The <code>AbsFactory</code> class is an abstract class that serves as a factory for creating various game objects.
+ * The <code>AbsFactory</code> class is an abstract class that serves
+ * as a factory for creating various game objects.
  *
  * <p>
- * This class provides abstract methods for creating different game objects such as enemies, players, bullets, power-ups, scoreboards, and visual managers. Each subclass of `AbsFactory` should implement these methods to create specific types of objects.
+ * This class provides abstract methods for creating different game objects such as
+ * enemies, players, bullets, power-ups, scoreboards, and visual managers.
+ * Each subclass of `AbsFactory` should implement these methods to create specific types of objects.
  * </p>
  */
 public abstract class AbsFactory {
@@ -23,7 +26,8 @@ public abstract class AbsFactory {
     public abstract AbsEnemy createEnemy(int x, int y);
 
     /**
-     * Creates a player object at the specified coordinates with the given player name and input.
+     * Creates a player object at the specified coordinates
+     * with the given player name and input.
      *
      * @param x          The x-coordinate of the player
      * @param y          The y-coordinate of the player
@@ -67,7 +71,8 @@ public abstract class AbsFactory {
     public abstract AbsScoreBoard createScoreBoard(LinkedList<AbsPlayer> players);
 
     /**
-     * Creates a visual manager object with the specified field dimensions and game logic.
+     * Creates a visual manager object with the
+     * specified field dimensions and game logic.
      *
      * @param fieldWidth  The width of the playing field
      * @param fieldHeight The height of the playing field
