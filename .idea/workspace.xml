@@ -4,239 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e0b8146e-ae4d-4245-9919-198e2446018c" name="Changes" comment="Added:&#10;- Sound effects and background music">
-      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/KotlinJavaRuntime.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/Config.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/Main.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsBullet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsCreature.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsEnemy.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsEnemyBullet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsEntity.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsFactory.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsPlayer.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsPlayerBullet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsPowerUp.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsScoreBoard.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsVisualManager.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/Game.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/ScoreBoardStruct.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/Timer.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Input/AbsInput.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Input/Keyboard1PlayerInput.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Input/Keyboard2PlayerInput.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DActionListener.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DButton.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DEnemy.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DEnemyBullet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DFactory.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DLabel.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DPlayer.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DPlayerBullet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DPowerUp.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DScoreBoard.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DVisualManager$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DVisualManager.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteActionListener.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteButton.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteEnemy.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteEnemyBullet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteFactory.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteLabel.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpritePlayer.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpritePlayerBullet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpritePowerUp.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteScoreBoard.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteVisualManager$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteVisualManager$2.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteVisualManager.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/levels/Level0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/levels/Level1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/levels/Level2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/levels/Level3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sounds/BackgroundMusic.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sounds/Enemy_dead.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sounds/Game_over.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sounds/Level_passed.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sounds/PlayerBullet_shoot.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sounds/PlayerBullet_test.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sounds/Powerup_dead.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sounds/Victory.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sounds/musket-shot-86526.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Animations/h_0001.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Animations/h_0002.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Animations/h_0003.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Animations/h_0004.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Animations/h_0005.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Animations/h_0006.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Animations/h_0007.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Animations/h_0008.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Animations/h_0009.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Animations/h_0010.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Animations/h_0011.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Animations/h_0012.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Animations/h_0013.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Animations/h_0014.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Animations/h_0015.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Bullets/Bullet_Blue.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Bullets/Bullet_Blue10x30.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Bullets/Bullet_Blue12x36.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Bullets/Bullet_Blue2x6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Bullets/Bullet_Blue4x12.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Bullets/Bullet_Blue6x18.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Bullets/Bullet_Blue8x24.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Bullets/Bullet_Green.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Bullets/Bullet_Green10x30.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Bullets/Bullet_Green12x36.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Bullets/Bullet_Green2x6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Bullets/Bullet_Green4x12.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Bullets/Bullet_Green6x18.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Bullets/Bullet_Green8x24.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Bullets/Bullet_Red.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Bullets/Bullet_Red10x30.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Bullets/Bullet_Red12x36.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Bullets/Bullet_Red2x6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Bullets/Bullet_Red4x12.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Bullets/Bullet_Red6x18.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Bullets/Bullet_Red8x24.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Enemy/Enemy.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Enemy/Enemy16x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Enemy/Enemy32x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Enemy/Enemy48x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Enemy/Enemy64x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Enemy/Enemy80x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Enemy/Enemy96x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Enemy/Powerup_left.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Enemy/Powerup_left128x64.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Enemy/Powerup_left160x80.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Enemy/Powerup_left192x96.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Enemy/Powerup_left32x16.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Enemy/Powerup_left64x32.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Enemy/Powerup_left96x48.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Enemy/Powerup_right.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Enemy/Powerup_right128x64.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Enemy/Powerup_right160x80.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Enemy/Powerup_right192x96.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Enemy/Powerup_right32x16.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Enemy/Powerup_right64x32.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Enemy/Powerup_right96x48.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Hearth_blue.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Hearth_red.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Blue.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Blue16x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Blue32x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Blue48x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Blue64x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Blue80x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Blue96x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Red.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Red16x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Red32x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Red48x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Red64x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Red80x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Red96x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/background.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsBoss.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/Components/MovementComponent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/Components/SoundComponent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Input/Keyboard1PlayerInput.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Input/Keyboard2PlayerInput.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DActionListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DBoss.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DButton.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteActionListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteBoss.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteButton.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteLabel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/levels/Level3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/levels/Level4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/sprites/Enemy/Enemy_Boss.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/sprites/Enemy/Enemy_Boss128x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/sprites/Enemy/Enemy_Boss192x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/sprites/Enemy/Enemy_Boss256x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/sprites/Enemy/Enemy_Boss320x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/sprites/Enemy/Enemy_Boss384x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/sprites/Enemy/Enemy_Boss64x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/sprites/Hearth_blue.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/sprites/Hearth_red.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/sprites/Player/Player_Blue_Shotgun.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/sprites/Player/Player_Blue_Shotgun16x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/sprites/Player/Player_Blue_Shotgun32x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/sprites/Player/Player_Blue_Shotgun48x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/sprites/Player/Player_Blue_Shotgun64x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/sprites/Player/Player_Blue_Shotgun80x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/sprites/Player/Player_Blue_Shotgun96x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/sprites/Player/Player_Red_Shotgun.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/sprites/Player/Player_Red_Shotgun16x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/sprites/Player/Player_Red_Shotgun32x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/sprites/Player/Player_Red_Shotgun48x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/sprites/Player/Player_Red_Shotgun64x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/sprites/Player/Player_Red_Shotgun80x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/res/sprites/Player/Player_Red_Shotgun96x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpaceInvadersV3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceInvadersV3.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsBullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsBullet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsEnemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsEnemy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsEnemyBullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsEnemyBullet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsPlayerBullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsPlayerBullet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsPowerUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsPowerUp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsScoreBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsScoreBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsVisualManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/AbsVisualManager.java" afterDir="false" />
+    <list default="true" id="e0b8146e-ae4d-4245-9919-198e2446018c" name="Changes" comment="Finished game:&#10;- Added new Levels&#10;- Added new Enemy&#10;- Added a gameOverScreen and VictoryScreen">
+      <change afterPath="$PROJECT_DIR$/src/Config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/MovementComponent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/MovementSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/Systems/MovementSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/ScoreBoardStruct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/ScoreBoardStruct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/SoundComponent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/SoundSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/Systems/SoundSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/Timer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/Timer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Input/AbsInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Input/AbsInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Input/KeyboardInput1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DEnemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DEnemy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DEnemyBullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DEnemyBullet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DGameFrame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DGameLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DLabel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DGameOverPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DGamePanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DPlayerBullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DPlayerBullet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DPowerUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DPowerUp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DScoreBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DScoreBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DVictoryPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DVisualManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DVisualManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteEnemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteEnemy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteEnemyBullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteEnemyBullet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteGameFrame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteGameLabel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteGamePanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpritePlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpritePlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpritePlayerBullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpritePlayerBullet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpritePowerUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpritePowerUp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteScoreBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteScoreBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteVisualManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteVisualManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/res/levels/Level0.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/levels/Level0.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/res/sprites/Player/Player_Blue_Mitraillette.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Blue_Shotgun.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/res/sprites/Player/Player_Blue_Mitraillette16x.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Blue_Shotgun16x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/res/sprites/Player/Player_Blue_Mitraillette32x.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Blue_Shotgun32x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/res/sprites/Player/Player_Blue_Mitraillette48x.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Blue_Shotgun48x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/res/sprites/Player/Player_Blue_Mitraillette64x.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Blue_Shotgun64x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/res/sprites/Player/Player_Blue_Mitraillette80x.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Blue_Shotgun80x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/res/sprites/Player/Player_Blue_Mitraillette96x.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Blue_Shotgun96x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/res/sprites/Player/Player_Red_Mitraillette.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Red_Shotgun.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/res/sprites/Player/Player_Red_Mitraillette16x.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Red_Shotgun16x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/res/sprites/Player/Player_Red_Mitraillette32x.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Red_Shotgun32x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/res/sprites/Player/Player_Red_Mitraillette48x.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Red_Shotgun48x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/res/sprites/Player/Player_Red_Mitraillette64x.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Red_Shotgun64x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/res/sprites/Player/Player_Red_Mitraillette80x.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Red_Shotgun80x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/res/sprites/Player/Player_Red_Mitraillette96x.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/res/sprites/Player/Player_Red_Shotgun96x.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -368,7 +139,8 @@
       <workItem from="1685806990450" duration="6372000" />
       <workItem from="1685863174860" duration="13879000" />
       <workItem from="1685903761182" duration="5583000" />
-      <workItem from="1685939034398" duration="5239000" />
+      <workItem from="1685939034398" duration="6221000" />
+      <workItem from="1685952304394" duration="896000" />
     </task>
     <task id="LOCAL-00001" summary="Version with:&#10;- No Data Oriented Design&#10;- Visualisations:&#10;    - J2D">
       <created>1685278725089</created>
@@ -447,7 +219,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685621884702</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Finished game:&#10;- Added new Levels&#10;- Added new Enemy&#10;- Added a gameOverScreen and VictoryScreen">
+      <created>1685945226388</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1685945226388</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -500,6 +279,7 @@
     <MESSAGE value="Made heading more transparent and centered gamePanel in gameFrame" />
     <MESSAGE value="Added:&#10;- Bullet sprites (Green, Blue, Yellow, Red)&#10;- Sound effect (currently only for AbsPlayerBullet)" />
     <MESSAGE value="Added:&#10;- Sound effects and background music" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added:&#10;- Sound effects and background music" />
+    <MESSAGE value="Finished game:&#10;- Added new Levels&#10;- Added new Enemy&#10;- Added a gameOverScreen and VictoryScreen" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished game:&#10;- Added new Levels&#10;- Added new Enemy&#10;- Added a gameOverScreen and VictoryScreen" />
   </component>
 </project>

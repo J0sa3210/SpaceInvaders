@@ -9,19 +9,14 @@ import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Input.Keyboard1PlayerInput;
 import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Input.Keyboard2PlayerInput;
 import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Visualisation.Java2D.J2DFactory;
 import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Visualisation.Sprite.SpriteFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import javax.imageio.ImageIO;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -33,147 +28,54 @@ import java.util.stream.Stream;
 public class Game {
 
     // Variables concerning the game logic
-
-    /**
-     * Random number generator for various random operations in the game.
-     */
     Random random;
-
-    /**
-     * The scoreboard to keep track of players' scores.
-     */
     AbsScoreBoard scoreBoard;
-
-    /**
-     * Boolean flag indicating if the player has achieved victory.
-     */
     boolean victory;
-
-    /**
-     * Boolean flag indicating if the game is over.
-     */
     boolean gameOver;
-
-    /**
-     * Boolean flag indicating if the game is currently being played.
-     */
     boolean playing;
-
-    /**
-     * The current level the player is on.
-     */
     int currentLevel;
-
-    /**
-     * The total number of levels in the game.
-     */
     int totalLevels;
 
     // Game timings
-
-    /**
-     * Frames per second (FPS) value for the game.
-     */
     int FPS = 40;
-
-    /**
-     * Interval between frames in milliseconds.
-     */
     long frameInterval = 1000 / FPS;
-
-    /**
-     * Timer for the main game loop.
-     */
     Timer gameTimer;
-
-    /**
-     * Timer for power-up events.
-     */
     Timer powerupTimer;
 
     // Variables concerning the movement
-
-    /**
-     * Input system for player movement.
-     */
     AbsInput input;
-
-    /**
-     * The movement system responsible for updating player and enemy movements.
-     */
     MovementSystem movementUpdater = new MovementSystem();
 
     // Variables concerning the game environment
-
-    /**
-     * Factory object for creating game elements.
-     */
+    String typeOfFactory;
     AbsFactory factory;
-
-    /**
-     * Visual manager for handling the game's visual elements.
-     */
     AbsVisualManager visualManager;
 
-    /**
-     * The width of the game field.
-     */
     int fieldWidth;
-
-    /**
-     * The height of the game field.
-     */
     int fieldHeight;
 
     // Variables concerning the sound
-
-    /**
-     * Sound system for managing game audio.
-     */
     SoundSystem soundSystem = new SoundSystem();
-
-    /**
-     * List of sound components to play sounds.
-     */
     List<SoundComponent> soundComponents = new LinkedList<>();
 
     // Game elements
-
-    /**
-     * List of players in the game.
-     */
+    int amountOfPlayers;
     LinkedList<AbsPlayer> playersList = new LinkedList<>();
-
-    /**
-     * List of enemies in the game.
-     */
     LinkedList<AbsEnemy> enemiesList = new LinkedList<>();
-
-    /**
-     * List of bullets fired by players in the game.
-     */
     LinkedList<AbsBullet> playerBulletsList = new LinkedList<>();
-
-    /**
-     * List of bullets fired by enemies in the game.
-     */
     LinkedList<AbsBullet> enemyBulletsList = new LinkedList<>();
-
-    /**
-     * List of power-ups in the game.
-     */
     LinkedList<AbsPowerUp> powerupsList = new LinkedList<>();
 
 
     public Game() {
         // Read config files
-        ArrayList<String> configSettings = readConfigFiles();
+        readConfigFiles();
 
         // Load variables
-        loadVariables(configSettings);
+        loadVariables();
 
         // Create the player(s)
-        createPlayers(1);
+        createPlayers(amountOfPlayers);
 
         // Create game environment
         createGameEnvironment();
@@ -186,51 +88,34 @@ public class Game {
     }
 
     /**
-     * Reads all values in the Config.xml file. This file contains information about the gameField and can contain lots of other values.
-     *
-     * @return an ArrayList
-     * <p>
-     * of String containing the values (may need to be converted to other types)
+     * Reads all values in the Config.properties file.
      */
-    public ArrayList<String> readConfigFiles() {
-        // Get document and parse into .xml file
-        DocumentBuilder builder;
-        Document doc;
-        try {
-            builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            doc = builder.parse(new File("src/Config.xml"));
-            doc.getDocumentElement().normalize();
-        } catch (ParserConfigurationException | SAXException | IOException e) {
+    public void readConfigFiles() {
+        try (InputStream input = new FileInputStream("src/Config.properties")) {
+            Properties properties = new Properties();
+            properties.load(input);
+
+            fieldWidth = Integer.parseInt(properties.getProperty("fieldWidth"));
+            fieldHeight = Integer.parseInt(properties.getProperty("fieldHeight"));
+            amountOfPlayers = Integer.parseInt(properties.getProperty("amountOfPlayers"));
+            typeOfFactory = properties.getProperty("typeOfFactory");
+            currentLevel = Integer.parseInt(properties.getProperty("startAtLevel"));
+
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        // Read xml type file
-        NodeList frameSize = doc.getElementsByTagName("frameSize");
-        Node first = frameSize.item(0);
-        NodeList childs = first.getChildNodes();
-        int n = childs.getLength();
-        ArrayList<String> values = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            Node child = childs.item(i);
-            if (child.getNodeType() == Node.ELEMENT_NODE) {
-                values.add(child.getTextContent());
-            }
-        }
-        return values;
     }
 
     /**
      * Loads the game variables based on the provided settings.
-     *
-     * @param settings The settings for the game.
      */
-    public void loadVariables(ArrayList<String> settings) {
-        // Get the amount of cells in the gameField
-        fieldWidth = Integer.parseInt(settings.get(0));
-        fieldHeight = Integer.parseInt(settings.get(1));
-
+    public void loadVariables() {
         // Choose the type of visualization
-        factory = new SpriteFactory(fieldWidth, fieldHeight, this);
+        if (typeOfFactory.equals("Sprite")){
+            factory = new SpriteFactory(fieldWidth, fieldHeight, this);
+        } else if (typeOfFactory.equals("J2D")){
+            factory = new J2DFactory(fieldWidth, fieldHeight, this);
+        }
 
         // Create the different Timers
         gameTimer = new Timer();
@@ -245,7 +130,6 @@ public class Game {
         playing = false;    // This will change when the game is paused
 
         // Setup amount of rounds
-        currentLevel = 0;   // This is the current round that will be loaded
         totalLevels = 6;    // This is the total amount of rounds the player must survive to become victorious
 
         // Setup sounds
@@ -532,7 +416,8 @@ public class Game {
                     }
                     try {
                         it_playerBullets.remove();
-                    } catch (IllegalStateException ignored) {}
+                    } catch (IllegalStateException ignored) {
+                    }
                 }
             }
 
