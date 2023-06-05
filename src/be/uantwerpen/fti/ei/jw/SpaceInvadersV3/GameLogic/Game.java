@@ -13,10 +13,7 @@ import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Visualisation.Sprite.SpriteFactor
 import javax.imageio.ImageIO;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -68,6 +65,10 @@ public class Game {
 
 
     public Game() {
+        // Ask user input
+        askUserInput();
+
+
         // Read config files
         readConfigFiles();
 
@@ -76,6 +77,13 @@ public class Game {
 
         // Create the player(s)
         createPlayers(amountOfPlayers);
+
+        // Wait for 2 seconds until further loading the game
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         // Create game environment
         createGameEnvironment();
@@ -88,6 +96,62 @@ public class Game {
     }
 
     /**
+     * This method asks input about:
+     * - How many players will play (max 2)
+     * - What kind of visualization the player wants (Sprite or J2D)
+     */
+    private void askUserInput() {
+        // Get scanner for user input
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Welcome to Space Invaders!!");
+
+        // Get the values from user
+        getAmountOfPlayers(scanner);
+        getFactoryType(scanner);
+
+        // Start game
+        System.out.println("Please minimize the IntelliJ IDE. The game will start in 2 seconds.");
+        System.out.println("Thanks and enjoy the game!");
+    }
+
+    /**
+     * This method will ask for the amount of players the user wants. This method will keep repeating until a valid answer (1 or 2) has been given
+     * @param scanner The scanner to read the users input
+     *
+     * @see AbsPlayer
+     */
+    private void getAmountOfPlayers(Scanner scanner){
+        System.out.println("Please choose how many players you would like (1 or 2): ");
+        amountOfPlayers = Integer.parseInt(scanner.nextLine());
+        if (amountOfPlayers != 1 && amountOfPlayers != 2){
+            getAmountOfPlayers(scanner);
+        }
+    }
+
+    /**
+     * This method will ask for the type of visualisation the user wants.
+     * <p>
+     *     Based on that type, an instance of an {@link AbsFactory} will be made.
+     *     This method will keep repeating until a valid answer (1 or 2) has been given
+     * </p>
+     * @param scanner The scanner to read the users input
+     *
+     * @see J2DFactory
+     * @see SpriteFactory
+     */
+    private void getFactoryType(Scanner scanner){
+        System.out.println("Next, choose what type of visualisation you want Sprite (1) or J2D (2): ");
+        int choice = Integer.parseInt(scanner.nextLine());
+        if (choice == 1){
+            typeOfFactory = "Sprite";
+        } else if (choice == 2) {
+            typeOfFactory = "J2D";
+        } else {
+            getFactoryType(scanner);
+        }
+    }
+
+    /**
      * Reads all values in the Config.properties file.
      */
     public void readConfigFiles() {
@@ -97,8 +161,6 @@ public class Game {
 
             fieldWidth = Integer.parseInt(properties.getProperty("fieldWidth"));
             fieldHeight = Integer.parseInt(properties.getProperty("fieldHeight"));
-            amountOfPlayers = Integer.parseInt(properties.getProperty("amountOfPlayers"));
-            typeOfFactory = properties.getProperty("typeOfFactory");
             currentLevel = Integer.parseInt(properties.getProperty("startAtLevel"));
 
         } catch (IOException e) {

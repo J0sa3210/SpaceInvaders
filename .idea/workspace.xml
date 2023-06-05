@@ -4,10 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e0b8146e-ae4d-4245-9919-198e2446018c" name="Changes" comment="Finished game:&#10;- Added new Levels&#10;- Added new Enemy&#10;- Added a gameOverScreen and VictoryScreen">
-      <change afterPath="$PROJECT_DIR$/src/Config.properties" afterDir="false" />
+    <list default="true" id="e0b8146e-ae4d-4245-9919-198e2446018c" name="Changes" comment="Finished game:&#10;- Deleted Config.xml file">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Input/AbsInput.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Input/AbsInput.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteEnemy.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteEnemy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteEnemyBullet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteEnemyBullet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpriteFactory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpritePlayerBullet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpaceInvadersV3/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Sprite/SpritePlayerBullet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/Config.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/GameLogic/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DVisualManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/be/uantwerpen/fti/ei/jw/SpaceInvadersV3/Visualisation/Java2D/J2DVisualManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +147,7 @@
       <workItem from="1685863174860" duration="13879000" />
       <workItem from="1685903761182" duration="5583000" />
       <workItem from="1685939034398" duration="6221000" />
-      <workItem from="1685952304394" duration="896000" />
+      <workItem from="1685952304394" duration="3428000" />
     </task>
     <task id="LOCAL-00001" summary="Version with:&#10;- No Data Oriented Design&#10;- Visualisations:&#10;    - J2D">
       <created>1685278725089</created>
@@ -226,7 +233,21 @@
       <option name="project" value="LOCAL" />
       <updated>1685945226388</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Finished game:&#10;- Changed config file to a .properties file">
+      <created>1685953409851</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1685953409851</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Finished game:&#10;- Deleted Config.xml file">
+      <created>1685953451937</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1685953451937</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -280,6 +301,8 @@
     <MESSAGE value="Added:&#10;- Bullet sprites (Green, Blue, Yellow, Red)&#10;- Sound effect (currently only for AbsPlayerBullet)" />
     <MESSAGE value="Added:&#10;- Sound effects and background music" />
     <MESSAGE value="Finished game:&#10;- Added new Levels&#10;- Added new Enemy&#10;- Added a gameOverScreen and VictoryScreen" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished game:&#10;- Added new Levels&#10;- Added new Enemy&#10;- Added a gameOverScreen and VictoryScreen" />
+    <MESSAGE value="Finished game:&#10;- Changed config file to a .properties file" />
+    <MESSAGE value="Finished game:&#10;- Deleted Config.xml file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished game:&#10;- Deleted Config.xml file" />
   </component>
 </project>
