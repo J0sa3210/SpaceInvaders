@@ -1,7 +1,13 @@
 package be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic;
 
+import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic.Components.MovementComponent;
+import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic.Components.SoundComponent;
+import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic.Systems.MovementSystem;
+import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic.Systems.SoundSystem;
 import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Input.AbsInput;
-import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Input.KeyboardInput1;
+import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Input.Keyboard1PlayerInput;
+import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Input.Keyboard2PlayerInput;
+import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Visualisation.Java2D.J2DFactory;
 import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Visualisation.Sprite.SpriteFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -12,63 +18,162 @@ import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+
+/**
+ * The main <code>game</code> class controls the game logic and elements.
+ */
 public class Game {
 
     // Variables concerning the game logic
+
+    /**
+     * Random number generator for various random operations in the game.
+     */
     Random random;
+
+    /**
+     * The scoreboard to keep track of players' scores.
+     */
     AbsScoreBoard scoreBoard;
-    boolean victory, gameOver, playing;
-    int currentLevel, totalLevels;
+
+    /**
+     * Boolean flag indicating if the player has achieved victory.
+     */
+    boolean victory;
+
+    /**
+     * Boolean flag indicating if the game is over.
+     */
+    boolean gameOver;
+
+    /**
+     * Boolean flag indicating if the game is currently being played.
+     */
+    boolean playing;
+
+    /**
+     * The current level the player is on.
+     */
+    int currentLevel;
+
+    /**
+     * The total number of levels in the game.
+     */
+    int totalLevels;
 
     // Game timings
-    int FPS = 60;
+
+    /**
+     * Frames per second (FPS) value for the game.
+     */
+    int FPS = 40;
+
+    /**
+     * Interval between frames in milliseconds.
+     */
     long frameInterval = 1000 / FPS;
-    Timer gameTimer, powerupTimer;
+
+    /**
+     * Timer for the main game loop.
+     */
+    Timer gameTimer;
+
+    /**
+     * Timer for power-up events.
+     */
+    Timer powerupTimer;
 
     // Variables concerning the movement
+
+    /**
+     * Input system for player movement.
+     */
     AbsInput input;
+
+    /**
+     * The movement system responsible for updating player and enemy movements.
+     */
     MovementSystem movementUpdater = new MovementSystem();
 
     // Variables concerning the game environment
+
+    /**
+     * Factory object for creating game elements.
+     */
     AbsFactory factory;
+
+    /**
+     * Visual manager for handling the game's visual elements.
+     */
     AbsVisualManager visualManager;
-    int fieldWidth, fieldHeight;
+
+    /**
+     * The width of the game field.
+     */
+    int fieldWidth;
+
+    /**
+     * The height of the game field.
+     */
+    int fieldHeight;
 
     // Variables concerning the sound
+
+    /**
+     * Sound system for managing game audio.
+     */
     SoundSystem soundSystem = new SoundSystem();
+
+    /**
+     * List of sound components to play sounds.
+     */
     List<SoundComponent> soundComponents = new LinkedList<>();
 
-
     // Game elements
-    LinkedList<AbsPlayer> players = new LinkedList<>();
+
+    /**
+     * List of players in the game.
+     */
+    LinkedList<AbsPlayer> playersList = new LinkedList<>();
+
+    /**
+     * List of enemies in the game.
+     */
     LinkedList<AbsEnemy> enemiesList = new LinkedList<>();
-    LinkedList<AbsBullet> playerBullets = new LinkedList<>();
-    LinkedList<AbsBullet> enemyBullets = new LinkedList<>();
-    LinkedList<AbsPowerUp> powerups = new LinkedList<>();
+
+    /**
+     * List of bullets fired by players in the game.
+     */
+    LinkedList<AbsBullet> playerBulletsList = new LinkedList<>();
+
+    /**
+     * List of bullets fired by enemies in the game.
+     */
+    LinkedList<AbsBullet> enemyBulletsList = new LinkedList<>();
+
+    /**
+     * List of power-ups in the game.
+     */
+    LinkedList<AbsPowerUp> powerupsList = new LinkedList<>();
 
 
     public Game() {
         // Read config files
-        ArrayList<String> configSettings;
-        try {
-            configSettings = readConfigFiles();
-        } catch (ParserConfigurationException | SAXException | IOException e) {
-            throw new RuntimeException(e);
-        }
+        ArrayList<String> configSettings = readConfigFiles();
 
         // Load variables
         loadVariables(configSettings);
 
         // Create the player(s)
-        createPlayers(2);
+        createPlayers(1);
 
         // Create game environment
         createGameEnvironment();
@@ -77,15 +182,29 @@ public class Game {
         loadLevel(currentLevel++);
 
         // Start Game
-        startGame();
+        startGameLoop();
     }
 
+    /**
+     * Reads all values in the Config.xml file. This file contains information about the gameField and can contain lots of other values.
+     *
+     * @return an ArrayList
+     * <p>
+     * of String containing the values (may need to be converted to other types)
+     */
+    public ArrayList<String> readConfigFiles() {
+        // Get document and parse into .xml file
+        DocumentBuilder builder;
+        Document doc;
+        try {
+            builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            doc = builder.parse(new File("src/Config.xml"));
+            doc.getDocumentElement().normalize();
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            throw new RuntimeException(e);
+        }
 
-    // Read config files
-    public ArrayList<String> readConfigFiles() throws ParserConfigurationException, IOException, SAXException {
-        DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-        Document doc = builder.parse(new File("src/Config.xml"));
-        doc.getDocumentElement().normalize();
+        // Read xml type file
         NodeList frameSize = doc.getElementsByTagName("frameSize");
         Node first = frameSize.item(0);
         NodeList childs = first.getChildNodes();
@@ -94,20 +213,24 @@ public class Game {
         for (int i = 0; i < n; i++) {
             Node child = childs.item(i);
             if (child.getNodeType() == Node.ELEMENT_NODE) {
-                //System.out.println(child.getNodeName() + ": " + child.getTextContent());
                 values.add(child.getTextContent());
             }
         }
         return values;
     }
 
+    /**
+     * Loads the game variables based on the provided settings.
+     *
+     * @param settings The settings for the game.
+     */
     public void loadVariables(ArrayList<String> settings) {
         // Get the amount of cells in the gameField
         fieldWidth = Integer.parseInt(settings.get(0));
         fieldHeight = Integer.parseInt(settings.get(1));
 
-        // Choose the type of visualisation
-        factory = new SpriteFactory(fieldWidth, fieldHeight);
+        // Choose the type of visualization
+        factory = new SpriteFactory(fieldWidth, fieldHeight, this);
 
         // Create the different Timers
         gameTimer = new Timer();
@@ -116,46 +239,56 @@ public class Game {
         // Create random generator
         random = new Random();
 
-
         // Setup gameLogic booleans
         victory = false;    // This will change if the players have defeated all the levels
         gameOver = false;   // This will change if 1 player reaches 0 lives
-        playing = false;    // This will chane when the game is paused
+        playing = false;    // This will change when the game is paused
 
         // Setup amount of rounds
         currentLevel = 0;   // This is the current round that will be loaded
-        totalLevels = 4;    // This is the total amount of rounds the player must survive to become victorious
+        totalLevels = 6;    // This is the total amount of rounds the player must survive to become victorious
 
         // Setup sounds
         soundSystem.startBackgroundMusic();
-
     }
 
+    /**
+     * Creates the players based on the specified amount.
+     *
+     * @param amountOfPlayers The number of players to create.
+     */
     private void createPlayers(int amountOfPlayers) {
         // Choose the type of input
-        input = new KeyboardInput1(amountOfPlayers);
-        if (amountOfPlayers > 0) {
-            players.add(factory.createPlayer(100, fieldHeight - 15, "Player1", input));
+        if (amountOfPlayers == 1) {
+            input = new Keyboard1PlayerInput();
+            playersList.add(factory.createPlayer(100, fieldHeight - 15, "Player1", input));
+        } else if (amountOfPlayers == 2) {
+            input = new Keyboard2PlayerInput();
+            playersList.add(factory.createPlayer(100, fieldHeight - 15, "Player1", input));
+            playersList.add(factory.createPlayer(50, fieldHeight - 15, "Player2", input));
         }
-        if (amountOfPlayers > 1) {
-            players.add(factory.createPlayer(50, fieldHeight - 15, "Player2", input));
-        }
-
     }
 
+    /**
+     * Creates the game environment and sets up the visual manager.
+     */
     private void createGameEnvironment() {
         // Create scoreBoard
-        scoreBoard = factory.createScoreBoard(players);
+        scoreBoard = factory.createScoreBoard(playersList);
 
         visualManager = factory.getVisualManager();
         visualManager.setupGameEnv(input, scoreBoard);                   // This will set up the game environment
-
     }
 
+    /**
+     * Loads the specified level.
+     *
+     * @param round The level/round to load.
+     */
     public void loadLevel(int round) {
         BufferedImage lvl;
         try {
-            lvl = ImageIO.read(new File("D:\\_Opslag\\Programmeren\\Java\\SpaceInvadersV3\\src\\res\\levels\\Level" + round + ".png")); // Reads file and converts it to a BufferedImage
+            lvl = ImageIO.read(new File("src/res/levels/Level" + round + ".png")); // Reads file and converts it to a BufferedImage
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -167,6 +300,7 @@ public class Game {
         for (int x = 0; x < w; x++) {
             for (int y = 0; y < h; y++) {
                 int pixel = lvl.getRGB(x, y);
+
                 // This will shift the value from every pixel to a range between 0 and 255 using the arithmetic shift and bit-and functions
                 int red = (pixel >> 16) & 0xff;
                 int green = (pixel >> 8) & 0xff;
@@ -175,88 +309,97 @@ public class Game {
                 // If the pixel is white, all the values will be 255
                 if (red == 255 && green == 255 && blue == 255) {
                     enemiesList.add(factory.createEnemy(x * 16, y * 16)); // This will create an enemy on the location of the pixel but in the field
+                } else if (red == 255 && green == 0 && blue == 0) {
+                    enemiesList.add(factory.createBoss(x * 16, y * 16));
                 }
             }
         }
     }
 
+    /**
+     * Proceeds to the next round of the game.
+     */
     public void nextRound() {
         if (currentLevel == totalLevels) {
             playing = false;
             victory = true;
         } else {
             soundSystem.playLevelPassedSound();
-            players.forEach(AbsPlayer::resetPowerup);
-            playerBullets.clear();
-            enemyBullets.clear();
+            playersList.forEach(AbsPlayer::resetPowerup);
+            playerBulletsList.clear();
+            enemyBulletsList.clear();
             loadLevel(currentLevel++);
         }
     }
 
-    public void startGame() {
-        // Start timer voor wanneer powerup mag komen
+
+    /**
+     * Starts the game loop, updating players {@link AbsPlayer}, enemies {@link AbsEnemy}, power ups {@link AbsPowerUp}, and checking for victory or game over.
+     * If victorious, displays victory screen and plays victory sound.
+     * If game over, displays game over screen and plays game over sound.
+     *
+     * @see AbsVisualManager
+     * @see SoundSystem
+     */
+    public void startGameLoop() {
         powerupTimer = new Timer();
         playing = true;
         gameLoop();
         if (victory) {
-            System.out.println("Victorious");
+            //System.out.println("Victorious");
             soundSystem.playVictorySound();
-            while (true) {
-
-            }
+            visualManager.getVictoryScreen();
         }
         if (gameOver) {
-            System.out.println("GameOver");
+            //System.out.println("GameOver");
             soundSystem.playGameOverSound();
-            while (true) {
-
-            }
+            visualManager.getGameOverScreen();
         }
     }
 
-
+    /**
+     * Updates the movement of the players {@link AbsPlayer},
+     * checks for power ups {@link AbsPowerUp},
+     * and creates player bullets if the player shoots{@link AbsPlayerBullet}.
+     */
     private void updatePlayers() {
-        /*
-            Update all players in the list, this means:
-            - Check if they have a powerup
-            - Check if they want to shoot
-            - Update their position
-             */
-        movementUpdater.updatePlayers(players, fieldWidth, input);
-        for (AbsPlayer p : players) {
+        // Update position of players
+        movementUpdater.updatePlayers(playersList, fieldWidth, input);
+
+        for (AbsPlayer p : playersList) {
             // Give player powerUp
             p.checkPowerUp();
 
             // Create bullets if player shoots
             if (p.shoots() && p.getShootTimer().getTime() >= 500 / p.getShootingBonus()) {
-                AbsPlayerBullet bullet = factory.createPlayerBullet(p);
-                soundComponents.add(bullet.getSound());
-                playerBullets.add(bullet);
+                if (p.hasShotgun()) {
+                    AbsPlayerBullet bullet1 = factory.createPlayerBullet(p);
+                    soundComponents.add(bullet1.getSound());
+                    playerBulletsList.add(bullet1);
+                    AbsPlayerBullet bullet2 = factory.createPlayerBullet(p);
+                    bullet2.getMovementComponent().setSpeedX(1);
+                    soundComponents.add(bullet2.getSound());
+                    playerBulletsList.add(bullet2);
+                    AbsPlayerBullet bullet3 = factory.createPlayerBullet(p);
+                    bullet3.getMovementComponent().setSpeedX(-1);
+                    soundComponents.add(bullet3.getSound());
+                    playerBulletsList.add(bullet3);
+                } else {
+                    AbsPlayerBullet bullet = factory.createPlayerBullet(p);
+                    soundComponents.add(bullet.getSound());
+                    playerBulletsList.add(bullet);
+                }
                 p.getShootTimer().reset();
             }
         }
     }
 
+    /**
+     * Updates the movement of the enemies every 0.3seconds {@link AbsEnemy},
+     * checks for enemy bullet {@link AbsEnemyBullet} creation every 1 second,
+     * and resets movement and shooting timers.
+     */
     private void updateEnemies() {
-         /*
-        Update all enemies in the list, this means:
-        - Let them shoot
-        - Update their position
-         */
-        if (AbsEnemy.getBulletTimer().getTime() > 1000) {
-            for (AbsEnemy enemy : enemiesList) {
-                int rand = random.nextInt(100); // gives a number between 0 and 99
-
-                // 10% chance that an enemy shoots
-                if (rand < 10) {
-                    AbsEnemyBullet enemyBullet = factory.createEnemyBullet(enemy);
-                    soundComponents.add(enemyBullet.getSound());
-                    enemyBullets.add(enemyBullet);
-
-                }
-            }
-            AbsEnemy.getBulletTimer().reset();
-        }
 
         // Make sure that the enemies move slower than the rest of the game
         if (AbsEnemy.getEnemyMoveTimer().getTime() >= 300) {
@@ -264,183 +407,276 @@ public class Game {
             movementUpdater.updateEnemies(components, enemiesList.get(0), fieldWidth);
             AbsEnemy.getEnemyMoveTimer().reset();
         }
+
+        // Every second, randomly choose enemies to shoot (10% chance)
+        if (AbsEnemy.getBulletTimer().getTime() > 1000) {
+
+            for (AbsEnemy enemy : enemiesList) {
+                int rand = random.nextInt(100); // gives a number between 0 and 99
+                if (enemy.getClass().getSuperclass().getSimpleName().equals("AbsBoss")) {
+                    if (rand < 50) {
+                        AbsEnemyBullet enemyBullet0 = factory.createEnemyBullet(enemy);
+                        soundComponents.add(enemyBullet0.getSound());
+                        enemyBulletsList.add(enemyBullet0);
+                        AbsEnemyBullet enemyBullet1 = factory.createEnemyBullet(enemy);
+                        enemyBullet1.getMovementComponent().setSpeedX(1);
+                        soundComponents.add(enemyBullet1.getSound());
+                        enemyBulletsList.add(enemyBullet1);
+                        AbsEnemyBullet enemyBullet2 = factory.createEnemyBullet(enemy);
+                        enemyBullet2.getMovementComponent().setSpeedX(-1);
+                        soundComponents.add(enemyBullet2.getSound());
+                        enemyBulletsList.add(enemyBullet2);
+                    }
+                } else {
+                    // 10% chance that an enemy shoots
+                    if (rand < 10) {
+                        AbsEnemyBullet enemyBullet = factory.createEnemyBullet(enemy);
+                        soundComponents.add(enemyBullet.getSound());
+                        enemyBulletsList.add(enemyBullet);
+
+                    }
+                }
+            }
+            AbsEnemy.getBulletTimer().reset();
+        }
     }
 
-    public void gameLoop() {
-        // Start gameLoop
-        System.out.println("Game loop starting");
-        while (playing) {
-            if (!input.pausePressed) {
-                powerupTimer.start();
-                for (AbsPlayer player : players) {
-                    player.startTimers();
+    /**
+     * Resumes the game by restarting power up timer and player timers.
+     *
+     * @see Timer
+     */
+    private void resumeGame() {
+        powerupTimer.start();
+        for (AbsPlayer player : playersList) {
+            player.startTimers();
+        }
+    }
+
+    /**
+     * Checks if all enemies have been defeated, and if so, progresses to the next round.
+     *
+     * @return a boolean indicating if the player has progressed to the next level.
+     */
+    private boolean checkNextLevel() {
+        if (enemiesList.size() == 0) {
+            nextRound();
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Creates a power up object {@link AbsPowerUp} every 20 seconds if there are no power ups present.
+     */
+    private void createPowerUp() {
+        // Create a powerUp object every 20 seconds
+        if (powerupTimer.getTime() > 10000 && powerupsList.isEmpty()) {
+            powerupsList.add(factory.createPowerUp(0, 0));
+            powerupTimer.reset();
+        }
+
+    }
+
+    /**
+     * Moves all powerups {@link AbsPowerUp} on the game board by calling the updatePowerup method from movementUpdater {@link MovementSystem}.
+     */
+    private void movePowerups() {
+        if (!powerupsList.isEmpty()) {
+            // Get all the MovementComponents
+            List<MovementComponent> powerUpMovementComponents = powerupsList.stream().map(AbsEntity::getMovementComponent).collect(Collectors.toList());
+            movementUpdater.updatePowerup(powerUpMovementComponents, powerupsList.get(0), fieldWidth);
+        }
+    }
+
+    /**
+     * Moves all bullets {@link AbsPlayer} on the game board by calling the updateBullets method from movementUpdater {@link MovementSystem}.
+     * Bullets can belong to the player {@link AbsPlayerBullet} or the enemy {@link AbsEnemyBullet}.
+     *
+     * @see AbsPlayer
+     * @see AbsEnemy
+     */
+    private void moveBullets() {
+        List<MovementComponent> bulletMovementComponents = Stream.concat(playerBulletsList.stream().map(AbsEntity::getMovementComponent), enemyBulletsList.stream().map(AbsEntity::getMovementComponent)).collect(Collectors.toList());
+        movementUpdater.updateBullets(bulletMovementComponents);
+    }
+
+    /**
+     * Checks for collisions between playerBullets {@link AbsPlayerBullet} and enemies {@link AbsEnemy} or powerups {@link AbsPowerUp}.
+     * Any detected collisions will damage the appropriate entity or remove it completely.
+     * If a powerup {@link AbsPowerUp}is destroyed, the player who shot it gains the power from the powerup.
+     */
+    private void checkCollisionPlayerBullets() {
+        // Check for collisions between playerBullets and Enemies or Powerups
+        Iterator<AbsBullet> it_playerBullets = playerBulletsList.iterator();
+        while (it_playerBullets.hasNext()) {
+            // Get the playerBullet object
+            AbsPlayerBullet playerBullet = (AbsPlayerBullet) it_playerBullets.next();
+
+            // If playerBullet exits the field, let it disappear
+            if (playerBullet.getMovementComponent().getPosY() + playerBullet.getHeight() <= 0) {
+                it_playerBullets.remove();
+            }
+
+            // Look if playerBullet has hit the powerUp
+            Iterator<AbsPowerUp> it_powerups = powerupsList.iterator();
+            while (it_powerups.hasNext()) {
+                AbsPowerUp powerUp = it_powerups.next();
+                if (playerBullet.hasHit(powerUp)) {
+                    powerUp.damagedBy(playerBullet);
+                    if (powerUp.isDead()) {
+                        playerBullet.getShooter().getPowerUp(powerUp.getPowerUp()); // Give the power from the powerUp to the shooter of the playerBullet that hit it
+                        soundComponents.add(powerUp.getDeadSound());
+                        it_powerups.remove();
+                        powerupTimer.reset();
+                    }
+                    try {
+                        it_playerBullets.remove();
+                    } catch (IllegalStateException ignored) {}
                 }
+            }
 
+            // Look if playerBullet has hit an enemy
+            Iterator<AbsEnemy> it_enemies = enemiesList.iterator();
+            while (it_enemies.hasNext()) {
+                AbsEnemy enemy = it_enemies.next();
+                // If enemy is hit, damage it
+                if (playerBullet.hasHit(enemy)) {
+                    // Damage the enemy hit
+                    enemy.damagedBy(playerBullet);
+                    // If enemy has no health anymore, delete it
+                    if (enemy.isDead()) {
+                        soundComponents.add(enemy.getDeadSound());
+                        it_enemies.remove();
+                        if (enemy.getClass().getSuperclass().getSimpleName().equals("AbsBoss")) {
+                            playerBullet.getShooter().addPoints(10);
+                        } else {
+                            playerBullet.getShooter().addPoints(1);
+                        }
+                    }
 
-// ******************************************** CHECK FOR NEXT LEVEL ***************************************************
-                // Check if there are no enemies left, if so the next round should be loaded
-                if (enemiesList.size() == 0) {
-                    System.out.println("No enemies");
-                    nextRound();
+                    // Remove the bullet since it has hit something
+                    try {
+                        it_playerBullets.remove();
+                    } catch (IllegalStateException ignored) {
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * This method checks if any enemy bullets {@link AbsEnemyBullet} have hit a player {@link AbsPlayer} or the bottom of the field, and damages the player
+     * accordingly. If a player is killed by a bullet, the game is over.
+     */
+    private void checkCollisionEnemyBullets() {
+        // Look if enemyBullet has hit a player
+        Iterator<AbsBullet> it_enemyBullets = enemyBulletsList.iterator();
+        while (it_enemyBullets.hasNext()) {
+            // Get the enemybullet object
+            AbsEnemyBullet enemyBullet = (AbsEnemyBullet) it_enemyBullets.next();
+
+            // If bullet exits the field, let it disappear
+            if (enemyBullet.getMovementComponent().getPosY() > fieldHeight) {
+                it_enemyBullets.remove();
+            }
+
+            // Check if enemyBullet has hit a player
+            for (AbsPlayer player : playersList) {
+                if (player != null && enemyBullet.hasHit(player)) {
+                    player.damagedBy(enemyBullet);
+                    try {
+                        it_enemyBullets.remove();
+                    } catch (IllegalStateException ignored) {
+
+                    }
+
+                    // Check if player is dead or not
+                    if (player.isDead()) {
+                        gameOver = true;
+                        playing = false;
+                    }
+                }
+            }
+        }
+
+        // Check if enemy has hit the ground level
+        try {
+            int maxY = enemiesList.stream().map(AbsEntity::getMovementComponent).mapToInt(MovementComponent::getPosY).min().getAsInt() + enemiesList.get(0).getHeight();
+            if (maxY >= fieldHeight - enemiesList.get(0).getHeight()) {
+                gameOver = true;
+                playing = false;
+            }
+        } catch (IndexOutOfBoundsException | NoSuchElementException ignored) {
+        }
+    }
+
+    /**
+     * This method visualizes all objects on the field, including enemies, players, bullets, powerups, and thescoreboard.
+     * It also renders game screen. How depends on the type of visualisation {@link AbsVisualManager}.
+     *
+     * @see AbsFactory
+     * @see be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Visualisation.Java2D.J2DVisualManager
+     * @see be.uantwerpen.fti.ei.jw.SpaceInvadersV3.Visualisation.Sprite.SpriteVisualManager
+     */
+    private void visualizeObjects() {
+        enemiesList.forEach(AbsEnemy::visualize);
+        playersList.forEach(AbsPlayer::visualize);
+        playerBulletsList.forEach(AbsBullet::visualize);
+        enemyBulletsList.forEach(AbsBullet::visualize);
+        powerupsList.forEach(AbsPowerUp::visualize);
+
+        // Update the points and lives of the players
+        scoreBoard.update();
+        scoreBoard.visualize();
+
+        visualManager.render();   // Show the bufferedImage on the gamePanel
+    }
+
+    /**
+     * This method is the main game loop that runs while the game is being played.
+     * It handles updating movement, checking for collisions, and rendering the game.
+     */
+    public void gameLoop() {
+
+        // Start gameLoop
+        while (playing) {
+
+            // When not paused, we update the movement, check for collisions and draw it
+            if (!input.pausePressed) {
+                resumeGame();
+
+                if (checkNextLevel()) {
                     continue;
                 }
 
-// ******************************************* CREATE POWERUP **********************************************************
-
-                // Create a powerUp object every 20 seconds
-                if (powerupTimer.getTime() > 10000 && powerups.isEmpty()) {
-                    powerups.add(factory.createPowerUp(0, 0));
-                    powerupTimer.reset();
-                }
-
-// ************************************** MOVE OBJECTS + CREATE BULLETS ************************************************
-
+                createPowerUp();
                 updatePlayers();
                 updateEnemies();
+                movePowerups();
+                moveBullets();
 
+                checkCollisionPlayerBullets();
+                checkCollisionEnemyBullets();
 
-                // Move all the powerUps
-                try {
-                    List<MovementComponent> powerUpMovementComponents = powerups.stream().map(AbsEntity::getMovementComponent).collect(Collectors.toList());
-                    movementUpdater.updatePowerup(powerUpMovementComponents, powerups.get(0), fieldWidth);
-                } catch (IndexOutOfBoundsException ignored) {
-                }
-                // Move all the components
-                List<MovementComponent> bulletMovementComponents = Stream.concat(playerBullets.stream().map(AbsEntity::getMovementComponent), enemyBullets.stream().map(AbsEntity::getMovementComponent)).collect(Collectors.toList());
-                movementUpdater.updateBullets(bulletMovementComponents);
-
-// ************************************************ COLLISION DETECTION ************************************************
-
-                // Iterators for the all the lists containing gameElements
-                Iterator<AbsBullet> it_playerBullets = playerBullets.iterator();
-                Iterator<AbsBullet> it_enemyBullets = enemyBullets.iterator();
-                Iterator<AbsEnemy> it_enemies = enemiesList.iterator();
-                Iterator<AbsPowerUp> it_powerups = powerups.iterator();
-
-                // Check for collisions between playerBullets and Enemies or Powerups
-                while (it_playerBullets.hasNext()) {
-                    // Get the playerBullet object
-                    AbsPlayerBullet playerBullet = (AbsPlayerBullet) it_playerBullets.next();
-
-                    // If playerBullet exits the field, let it disappear
-                    if (playerBullet.getMovementComponent().getPosY() + playerBullet.getHeight() <= 0) {
-                        it_playerBullets.remove();
-                    }
-
-                    // Look if playerBullet has hit the powerUp
-                    while (it_powerups.hasNext()) {
-                        AbsPowerUp powerUp = it_powerups.next();
-                        if (playerBullet.hasHit(powerUp)) {
-                            powerUp.damagedBy(playerBullet);
-                            if (powerUp.isDead()) {
-                                playerBullet.getShooter().getPowerUp(powerUp.getPowerUp()); // Give the power from the powerUp to the shooter of the playerBullet that hit it
-                                soundComponents.add(powerUp.getDeadSound());
-                                it_powerups.remove();
-                                powerupTimer.reset();
-                            }
-                            try {
-                                it_playerBullets.remove();
-                            } catch (IllegalStateException ignored) {
-
-                            }
-                        }
-                    }
-
-                    // Look if playerBullet has hit an enemy
-                    while (it_enemies.hasNext()) {
-                        AbsEnemy enemy = it_enemies.next();
-                        // If enemy is hit, damage it
-                        if (playerBullet.hasHit(enemy)) {
-                            // Damage the enemy hit
-                            enemy.damagedBy(playerBullet);
-
-                            // If enemy has no health anymore, delete it
-                            if (enemy.isDead()) {
-                                soundComponents.add(enemy.getDeadSound());
-                                it_enemies.remove();
-                                playerBullet.getShooter().addPoints(1);
-                            }
-
-                            // Remove the bullet since it has hit something
-                            try {
-                                it_playerBullets.remove();
-                            } catch (IllegalStateException ignored) {
-
-                            }
-                        }
-                    }
-                }
-
-                // Look if enemyBullet has hit a player
-                while (it_enemyBullets.hasNext()) {
-                    // Get the enemybullet object
-                    AbsEnemyBullet enemyBullet = (AbsEnemyBullet) it_enemyBullets.next();
-
-                    // If bullet exits the field, let it disappear
-                    if (enemyBullet.getMovementComponent().getPosY() > fieldHeight) {
-                        it_enemyBullets.remove();
-                    }
-
-                    // Check if enemyBullet has hit a player
-                    for (AbsPlayer player : players) {
-                        if (player != null && enemyBullet.hasHit(player)) {
-                            player.damagedBy(enemyBullet);
-                            try {
-                                it_enemyBullets.remove();
-                            } catch (IllegalStateException ignored) {
-
-                            }
-
-                            // Check if player is dead or not
-                            if (player.isDead()) {
-                                gameOver = true;
-                                playing = false;
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                // Check if enemy has hit the ground level
-                try {
-                    int maxY = enemiesList.stream().map(AbsEntity::getMovementComponent).mapToInt(MovementComponent::getPosY).min().getAsInt() + enemiesList.get(0).getHeight();
-                    if (maxY >= fieldHeight - enemiesList.get(0).getHeight()) {
-                        gameOver = true;
-                        playing = false;
-                        break;
-                    }
-                } catch (IndexOutOfBoundsException | NoSuchElementException ignored) {
-                }
-
-
-// ****************************************** VISUALIZE GAME OBJECTS ***************************************************
-                enemiesList.forEach(AbsEnemy::visualize);
-                players.forEach(AbsPlayer::visualize);
-                playerBullets.forEach(AbsBullet::visualize);
-                enemyBullets.forEach(AbsBullet::visualize);
-                powerups.forEach(AbsPowerUp::visualize);
-
-                // Update the points and lives of the players
-                scoreBoard.update();
-                scoreBoard.visualize();
-
-                visualManager.render();   // Show the bufferedImage on the gamePanel
-
+                visualizeObjects();
                 soundSystem.update(soundComponents);
 
-                //SoundSystem.update(playerBullets.stream().map(AbsBullet::getSoundComponent).collect(Collectors.toList()));
 
-// ***************************************** SLEEP UNTIL NEXT FRAME ****************************************************
-            } else {
+            } else { // If the game is paused
+
+                // Pause all timers in the game
                 powerupTimer.pause();
-                for (AbsPlayer player : players) {
+                for (AbsPlayer player : playersList) {
                     player.pauseTimers();
                 }
-                visualManager.clearGamePanel();
+
+                // Show the paused screen
                 visualManager.showPaused();
                 visualManager.render();
             }
-            // Sleep until next frame
+
+            // Calculate the time for each frame and sleep for the remaining time.
             long sleepTime = frameInterval - gameTimer.getTime();
             try {
                 if (sleepTime >= 0) {
@@ -452,9 +688,39 @@ public class Game {
             }
         }
     }
+
+    /**
+     * Resets the game by clearing all players and objects,
+     * setting game logic booleans, and creating new players.
+     * Also loads the first level and starts the game loop.
+     */
+    public void resetGame() {
+        // clear players and all objects
+        playersList.clear();
+        AbsPlayer.setPlayerId(0);
+        enemiesList.clear();
+        enemyBulletsList.clear();
+        playerBulletsList.clear();
+        powerupsList.clear();
+
+        // Setup gameLogic booleans
+        victory = false;    // This will change if the players have defeated all the levels
+        gameOver = false;   // This will change if 1 player reaches 0 lives
+        playing = false;    // This will chane when the game is paused
+
+        // Setup amount of rounds
+        currentLevel = 0;   // This is the current round that will be loaded
+        totalLevels = 1;    // This is the total amount of rounds the player must survive to become victorious
+
+
+        // Create the player(s)
+        createPlayers(2);
+
+        visualManager.getGameScreen();
+
+        loadLevel(currentLevel++);
+
+        // Start Game
+        startGameLoop();
+    }
 }
-
-// TODO: add animations
-// TODO: add images in scoreBoard
-// TODO: add gameOver and Victory screen
-

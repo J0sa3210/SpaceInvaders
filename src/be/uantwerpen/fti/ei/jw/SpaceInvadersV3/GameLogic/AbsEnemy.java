@@ -1,20 +1,43 @@
 package be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic;
 
+import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic.Components.MovementComponent;
+import be.uantwerpen.fti.ei.jw.SpaceInvadersV3.GameLogic.Components.SoundComponent;
+
 /**
- * <code>AbsEnemy</code> is an abstract class that contains all the methods and variables for an {@link AbsCreature} to be an enemy.
- * <p>
- * An <code>AbsEnemy</code> will move from side to side while slowly descending.
+ * An <code>AbsEnemy</code> is an abstract class that contains all the methods and variables for an {@link AbsCreature} to be an enemy.
+ * An AbsEnemy will move from side to side while slowly descending.
  * Meanwhile it will shoot {@link AbsEnemyBullet} to the {@link AbsPlayer}s.
- * </p>
  *
  * @see AbsCreature
  * @see AbsEnemyBullet
  * @see AbsPlayer
  */
 public abstract class AbsEnemy extends AbsCreature {
-    private static Timer bulletTimer, enemyMoveTimer;
-    private SoundComponent deadSound;
+    /**
+     * A Timer object used to control the firing rate of enemy bullets.
+     */
+    private static Timer bulletTimer;
 
+    /**
+     * A Timer object used to control the movement rate of enemies on the screen.
+     */
+    private static Timer enemyMoveTimer;
+
+    /**
+     * A SoundComponent object representing the sound played when the enemy is defeated.
+     */
+    private final SoundComponent deadSound;
+
+    /**
+     * Constructs a new AbsEnemy object with given x and y position.
+     * The object will have a width and height of 16 pixels, and a health of 1.
+     * A new movement component will be created with a speed of 1 and a height equal to the object's height.
+     * The dead sound will be set and initialized with a volume of -30 dB.
+     * If there is no bulletTimer and enemyMoveTimer, a new instance of each will be created.
+     *
+     * @param x The x position of the AbsEnemy.
+     * @param y The y position of the AbsEnemy.
+     */
     public AbsEnemy(int x, int y) {
         this.setWidth(16);
         this.setHeight(16);
@@ -31,24 +54,39 @@ public abstract class AbsEnemy extends AbsCreature {
     }
 
     /**
-     * Return the {@link Timer} that determines when the enemy can shoot.
+     * Returns the bulletTimer that determines when the enemy can shoot.
      *
-     * @return A {@link Timer} object.
+     * @return A Timer object.
      */
     public static Timer getBulletTimer() {
         return bulletTimer;
     }
 
     /**
-     * Return the {@link Timer} that determines when the enemy can move horizontally.
+     * Returns the enemyMoveTimer that determines when the enemy can move horizontally.
      *
-     * @return A {@link Timer} object.
+     * @return A Timer object.
      */
     public static Timer getEnemyMoveTimer() {
         return enemyMoveTimer;
     }
 
+    /**
+     * Returns the dead sound of the enemy.
+     *
+     * @return A SoundComponent object containing the sound of the enemy dying.
+     */
     public SoundComponent getDeadSound() {
         return deadSound;
+    }
+
+    /**
+     * Returns a String representation of the AbsEnemy object, including its location.
+     *
+     * @return A String representation of the AbsEnemy object.
+     */
+    @Override
+    public String toString() {
+        return "AbsEnemy{location: " + this.getMovementComponent().toString() + "}";
     }
 }
